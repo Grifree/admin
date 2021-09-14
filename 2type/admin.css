@@ -1,0 +1,79 @@
+@import "font-awesome/css/font-awesome.css";
+body {
+    padding:0;margin:0;
+}
+#ta-app,html,body {
+    height: 100%;
+}
+#ta-app>.el-container {
+    min-height: 100vh;
+}
+@font-face {
+    font-family: 'Roboto Slab';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Roboto Slab Regular'), local('RobotoSlab-Regular'), url(font/RobotoSlab-Regular4.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+#ta-app{
+    font-family: 'Roboto Slab', 'Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,\\5FAE\8F6F\96C5\9ED1,Arial,sans-serif';
+}
+.ta-icon {
+    width:1.2em;
+    margin-top: -.3em;
+}
+.ta-box {
+    box-shadow: 1px 1px 11px #ddd;
+    background: white;
+    border-radius: .3em;
+    padding: 2em;
+}
+.ta-box-title {
+    font-size:2em;
+    color: #777;
+    margin-bottom: 1em;
+}
+#ta-app{
+    display: none;
+}
+
+.ta-upload {
+    min-width: 4em;
+    min-height: 4em;
+    position: relative;
+    border:1px dashed #ccc;
+    background: #fefefe;
+    display: inline-block;
+    padding: .4em;
+}
+.ta-upload .el-upload {}
+.ta-upload-inner {
+
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.ta-upload-picker {
+    width:2em;height:2em;
+    top:0;left:0;
+    text-align: center;
+    line-height: 2em;
+    font-size:4em;
+    color:#ccc;
+}
+.ta-upload-filename {
+    width:100%;
+    font-size:1em;
+    color:#999;
+}
+.ta-upload-preview {
+    position: relative;
+    width: 100%;
+}
+.ta-upload-close {
+    height: 2em;
+}
+.ta-upload-picker:hover,
+.ta-upload-close:hover {
+    color:#1989fa;
+}
