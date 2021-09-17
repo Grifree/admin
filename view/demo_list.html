@@ -8,6 +8,7 @@
             </el-form-item>
             <el-form-item label="类型">
                 <el-select v-model="search.type" placeholder="全部">
+                    <!-- _enum().skuType 在 project.js 中配置 -->
                     <el-option v-for="(item, key) in _enum().skuType"  :key="item.key" :value="item.value" :label="item.label"></el-option>
                 </el-select>
             </el-form-item>

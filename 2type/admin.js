@@ -143,6 +143,8 @@ TA.m._listURL = function(path, data, page) {
 }
 import Upload from "../com/upload/index.js"
 Vue.component(Upload.name, Upload)
+import UploadList from "../com/uploadList/index.js"
+Vue.component(UploadList.name, UploadList)
 import Page from "../com/page/index.js"
 Vue.component(Page.name, Page)
 import Box from "../com/box/index.js"

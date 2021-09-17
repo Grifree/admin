@@ -27,6 +27,10 @@ body {
     background: white;
     border-radius: .3em;
     padding: 2em;
+    margin-bottom: 20px;
+}
+.el-main {
+    padding-bottom: 0;
 }
 .ta-box-title {
     font-size:2em;
