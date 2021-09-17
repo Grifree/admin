@@ -57,7 +57,22 @@ func main () {
 		t, err := view.GetTemplate("home.html") ; if err != nil { return }
 		return t.Execute(c.Writer, nil, Any{})
 	})
-
+	router.HandleFunc(xhttp.Route{xhttp.GET, "/admin/demo_list"}, func(c *xhttp.Context) (err error) {
+		t, err := view.GetTemplate("demo_list.html") ; if err != nil { return }
+		return t.Execute(c.Writer, nil, Any{})
+	})
+	router.HandleFunc(xhttp.Route{xhttp.GET, "/admin/demo_update"}, func(c *xhttp.Context) (err error) {
+		t, err := view.GetTemplate("demo_form.html") ; if err != nil { return }
+		return t.Execute(c.Writer, nil, Any{
+			"formKind": "update",
+		})
+	})
+	router.HandleFunc(xhttp.Route{xhttp.GET, "/admin/demo_create"}, func(c *xhttp.Context) (err error) {
+		t, err := view.GetTemplate("demo_form.html") ; if err != nil { return }
+		return t.Execute(c.Writer, nil, Any{
+			"formKind": "create",
+		})
+	})
 	server := &http.Server{
 		Addr: ":4122",
 		Handler: router,

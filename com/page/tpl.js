@@ -16,18 +16,18 @@ export default
                  <template v-for="(item, index) in nav.items"  >
                     <el-menu-item v-if="isEmptyArray(item.items)" :index="item.url" :key="item.title" >
                         <div slot="title">
-                            <img class="ta-icon" :src="'https://2type.github.io/icon/'+ item.taIcon +'.svg'" />
+                            <img class="ta-icon" :src="'https://2type.nimo.run/icon/'+ item.icon +'.svg'" />
                             {{item.title}}
                         </div>
                     </el-menu-item>         
                     <el-submenu v-else :index="'i'+index" :key="item.title"  >
                         <div slot="title">
-                            <img class="ta-icon" :src="'https://2type.github.io/icon/'+ item.taIcon +'.svg'" />
+                            <img class="ta-icon" :src="'https://2type.nimo.run/icon/'+ item.icon +'.svg'" />
                             {{item.title}}
                         </div>
                         <el-menu-item v-for="sub in item.items" :index="sub.url" :key="sub.title"  >
                             <div slot="title">
-                                <i :class="'fa fa-' + sub.faIcon" aria-hidden="true"></i>
+                                <i :class="'fa fa-' + sub.fontawesome" aria-hidden="true"></i>
                                 {{sub.title}}
                             </div>
                         </el-menu-item>
@@ -40,7 +40,7 @@ export default
             <el-header  style="height:auto;padding:1em;border-bottom:1px solid #eee;position:relative;z-idnex:2;">
                 <div  style="float:right;" >
                     <el-link :href="nav.logoutURL" target="_blank">
-                        <img src="https://2type.github.io/icon/dusty-blue/exit.svg" alt="" class="ta-icon">
+                        <img src="https://2type.nimo.run/icon/dusty-blue/exit.svg" alt="" class="ta-icon">
                         退出
                     </el-link>                
                 </div>

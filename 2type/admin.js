@@ -45,8 +45,13 @@ TA.m._submitURL = function(url, data, passCallback, failCallback) {
         data:data,
     }, passCallback, failCallback)
 }
-TA.m._find = function (data,searchValue, searchKey) {
-    searchKey = searchKey || "id"
+TA.m._find = function (searchEnum, searchKey, searchValue) {
+    const data = TA.enum[searchEnum]
+    if (!data) {
+        console.log(`_find(${searchEnum}, ${searchKey}, ${searchValue}) TA.m.${searchEnum} can not found`)
+        return
+    }
+    searchKey = searchKey || "key"
     let out = ""
     data.some(function (item) {
         if (item[searchKey] == searchValue) {
@@ -55,6 +60,9 @@ TA.m._find = function (data,searchValue, searchKey) {
         }
     })
     return out
+}
+TA.m._enum = function () {
+    return TA.enum
 }
 /*
     发起请求
@@ -87,6 +95,19 @@ TA.m._req = function (config, passCallback, failCallback) {
             passCallback = function (res) {
                 res.data = res.data || {}
                 if (res.data.jump) {
+                    if (/\(\)$/.test(res.data.jump) && /^url_/.test(res.data.jump)) {
+                        const urlKey = res.data.jump.replace("()")
+                        console.log("跳转至 TA.m." + urlKey)
+                        const urlfn = TA.m[urlKey]
+                        if (typeof urlfn == "undefined") {
+                            ELEMENT.Message({
+                                type: 'error',
+                                message: '跳转地址' + res.data.jump + "格式错误,未在 TA.m 中找到" + urlKey + "函数",
+                            })
+                            return
+                        }
+                        res.data.jump = urlfn()
+                    }
                     let page = res.data.jumpPageName || res.data.jump
                     ELEMENT.Message({
                         type: 'info',
@@ -98,20 +119,25 @@ TA.m._req = function (config, passCallback, failCallback) {
                 }
             }
         }
-        TA.custom._req.handleError(res, passCallback, failCallback)
+        TA.hook._req.handleError(res, passCallback, failCallback)
     }).catch(function (err) {
         loading.close()
         alert(err)
     })
 }
 // 列表页跳转专用
-TA.m._list = function(data, page) {
+TA.m._list = function (data, page) {
+    TA.m._listURL(location.pathname, data, page)
+}
+// 列表页跳转专用
+TA.m._listURL = function(path, data, page) {
+    path = path
     if (page) {
         data['page'] = page
     } else {
         data['page'] = 1
     }
-    location.href = location.pathname + "?" + TA.qs.stringify({
+    location.href = path + "?" + TA.qs.stringify({
         json: JSON.stringify(data)
     })
 }
@@ -119,6 +145,8 @@ import Upload from "../com/upload/index.js"
 Vue.component(Upload.name, Upload)
 import Page from "../com/page/index.js"
 Vue.component(Page.name, Page)
+import Box from "../com/box/index.js"
+Vue.component(Box.name, Box)
 
 setTimeout(function () {
     document.getElementById('ta-app').style.display = 'block'

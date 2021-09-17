@@ -10,7 +10,7 @@ export default {
     },
     methods: {
         onSuccess(res) {
-            if (TA.custom._req.handleError(res) == false) {
+            if (TA.hook._req.handleError(res) == false) {
                 this.$emit('input', {
                     id: res.data.id,
                     src: res.data.src,
