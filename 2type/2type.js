@@ -7,6 +7,11 @@ window.TA = {
 }
 TA.dayjs = dayjs
 TA.qs = qs
+TA.m._isDemo = function() {
+    return ['localhost', 'admin.2type.cn'].some(function (item){
+        return item == location.hostname
+    })
+}
 // 返回页面 GET 参数,
 // /news?id=1&name=nimo 返回 {id:"1",name:"nimo"}
 TA.m._query = function() {
@@ -72,27 +77,16 @@ TA.m._enum = function () {
       console.log(res)
     })
 */
-TA.m._req = function (config, passCallback, failCallback) {
-    let settings = config
-    settings.responseType = settings.responseType || "json"
-    const loading = ELEMENT.Loading.service({
-              lock: true,
-              text: settings.$LoadingText || 'Loading',
-              spinner: 'el-icon-loading',
-              background: 'rgba(0, 0, 0, 0.7)'
-            });
-    axios(settings).then(function (res) {
-        loading.close()
-        if (!failCallback) {
-            failCallback = function (res) {
+TA.default = {
+    hook: {
+        req: {
+            failCallback: function (res) {
                 ELEMENT.Message({
                     type: 'error',
                     message: res.data.error.message,
                 })
-            }
-        }
-        if (!passCallback) {
-            passCallback = function (res) {
+            },
+            passCallback: function (res) {
                 res.data = res.data || {}
                 if (res.data.jump) {
                     if (/\(\)$/.test(res.data.jump) && /^url_/.test(res.data.jump)) {
@@ -119,6 +113,25 @@ TA.m._req = function (config, passCallback, failCallback) {
                 }
             }
         }
+    }
+}
+TA.m._req = function (config, passCallback, failCallback) {
+    let settings = config
+    settings.responseType = settings.responseType || "json"
+    const loading = ELEMENT.Loading.service({
+              lock: true,
+              text: settings.$LoadingText || 'Loading',
+              spinner: 'el-icon-loading',
+              background: 'rgba(0, 0, 0, 0.7)'
+            });
+    axios(settings).then(function (res) {
+        loading.close()
+        if (!failCallback) {
+            failCallback = TA.default.hook.req.failCallback
+        }
+        if (!passCallback) {
+            passCallback = TA.default.hook.req.passCallback
+        }
         TA.hook._req.handleError(res, passCallback, failCallback)
     }).catch(function (err) {
         loading.close()
@@ -141,13 +154,13 @@ TA.m._listURL = function(path, data, page) {
         json: JSON.stringify(data)
     })
 }
-import Upload from "../com/upload/index.js"
+import Upload from "./module/upload/index.js"
 Vue.component(Upload.name, Upload)
-import UploadList from "../com/uploadList/index.js"
+import UploadList from "./module/uploadList/index.js"
 Vue.component(UploadList.name, UploadList)
-import Page from "../com/page/index.js"
+import Page from "./module/page/index.js"
 Vue.component(Page.name, Page)
-import Box from "../com/box/index.js"
+import Box from "./module/box/index.js"
 Vue.component(Box.name, Box)
 
 setTimeout(function () {

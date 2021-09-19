@@ -3,6 +3,7 @@
 
 <div class="main-form">
     <h1 class="title">2type管理后台</h1>
+    <el-tag v-if="_isDemo">演示环境 用户名 密码 图形验证码 短信验证码 可随意输入</el-tag>
     <el-form ref="form"  :model="form" label-width="100px" label-position="top" >
         <el-form-item type="tel" label="手机号">
             <el-input v-model="form.mobile"></el-input>

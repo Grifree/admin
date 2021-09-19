@@ -2,6 +2,7 @@
 [[block main()]]
 <ta-page :header="header">
     <ta-box title="商品列表">
+        <el-link :href="url_demo_create()">创建</el-link>
         <el-form :inline="true"  >
             <el-form-item label="标题">
                 <el-input v-model="search.title"></el-input>

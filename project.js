@@ -30,10 +30,10 @@ TA.enum.skuType = [
 ]
 
 TA.m['url_sms_send'] = function () {
-    return "/admin/mock/pass.json"
+    return "/sms/send"
 }
 TA.m['url_captcha'] = function () {
-    return "/admin/mock/captcha.png"
+    return "/captcha"
 }
 TA.m['url_home'] = function () {
     return "/admin/home"
@@ -46,7 +46,7 @@ TA.m['url_demo_list'] = function () {
             TA.dayjs().format("YYYY-MM-DD")
         ]
     })
-    return "/admin/demo_list?json=" + json
+    return "/admin/demo_list?json=" + encodeURIComponent(json)
 }
 TA.m['url_demo_update'] = function (id) {
     return "/admin/demo_update?id=" + id

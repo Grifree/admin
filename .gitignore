@@ -1,3 +1,4 @@
 .idea
 node_module
 vendor
+.DS_Store

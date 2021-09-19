@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"github.com/CloudyKit/jet/v6"
+	xcaptcha "github.com/goclub/captcha"
 	xerr "github.com/goclub/error"
 	xhttp "github.com/goclub/http"
 	xjson "github.com/goclub/json"
@@ -37,9 +38,27 @@ func init (){
 
 
 type Any map[string]interface{}
+type UploadRes struct {
+	ID string `json:"id"`
+	Filename string `json:"filename"`
+	Src string `json:"src"`
+	xerr.Resp
+}
 func main () {
 	router := xhttp.NewRouter(xhttp.RouterOption{
 
+	})
+	router.HandleFunc(xhttp.Route{xhttp.POST, "/admin/upload/photo"}, func(c *xhttp.Context) (err error) {
+		return c.WriteJSON(UploadRes{
+			Src: "https://picsum.photos/100",
+			ID: "https://picsum.photos/100",
+		})
+	})
+	router.HandleFunc(xhttp.Route{xhttp.POST, "/admin/upload/file"}, func(c *xhttp.Context) (err error) {
+		return c.WriteJSON(UploadRes{
+			Filename: "abc.csv",
+			ID: "some_id",
+		})
 	})
 	router.HandleFunc(xhttp.Route{xhttp.GET, "/admin/login"}, func(c *xhttp.Context) (err error) {
 		t, err := view.GetTemplate("login.html") ; if err != nil { return }
@@ -73,11 +92,20 @@ func main () {
 			"formKind": "create",
 		})
 	})
+	router.HandleFunc(xhttp.Route{xhttp.GET, "/captcha"}, func(c *xhttp.Context) (err error) {
+		_, err = xcaptcha.New(c.Writer, xcaptcha.Option{}) ; if err != nil {
+		    return
+		}
+		return
+	})
+	router.HandleFunc(xhttp.Route{xhttp.POST,"/sms/send",}, func(c *xhttp.Context) (err error) {
+		return c.WriteJSON(xerr.Resp{})
+	})
 	server := &http.Server{
 		Addr: ":4122",
 		Handler: router,
 	}
 	router.LogPatterns(server)
-	router.Static("/", "../") // 演示项目,正式项目不要将整个目录作为静态资源
+	router.FileServer("/public", "./") // 演示项目,正式项目不要将整个目录作为静态资源
 	log.Print(server.ListenAndServe())
 }
