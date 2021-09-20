@@ -51,6 +51,35 @@
             }
         }
     }
+    if (location.pathname == '/admin/demo_update') {
+        __RENDER_DATA = {
+            formKind: "update",
+            form: {
+                title: 'abc',
+                file: {
+                    filename: "abc.csv",
+                    id: "some_uuid",
+                },
+                photo: {
+                    src: "https://picsum.photos/100",
+                    id: "https://picsum.photos/100",
+                },
+                photoList: [
+                    {
+                        src: "https://picsum.photos/100",
+                        id: "https://picsum.photos/100",
+                    },
+                ],
+                fileList: [
+                    {
+                        filename: "abc.csv",
+                        id: "some_uuid",
+                    }
+                ],
+                content: "<p>html<strong>内容</strong></p>",
+            }
+        }
+    }
 </script>
 <script type="module" >
     import * as echartsPkg from "https://cdn.skypack.dev/echarts@4.1.0"

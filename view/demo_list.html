@@ -2,7 +2,9 @@
 [[block main()]]
 <ta-page :header="header">
     <ta-box title="商品列表">
-        <el-link :href="url_demo_create()">创建</el-link>
+        <div style="margin-bottom: 1em;">
+            <el-button @click="_jump(url_demo_create())" >创建</el-button>
+        </div>
         <el-form :inline="true"  >
             <el-form-item label="标题">
                 <el-input v-model="search.title"></el-input>
@@ -12,6 +14,21 @@
                     <!-- _enum().skuType 在 project.js 中配置 -->
                     <el-option v-for="(item, key) in _enum().skuType"  :key="item.key" :value="item.value" :label="item.label"></el-option>
                 </el-select>
+            </el-form-item>
+            <el-form-item label="用户">
+                <el-select v-model="search.user" placeholder="全部">
+                    <el-option v-for="(item, key) in option.user"  :key="item.key" :value="item.userID" :label="item.userName"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="多级">
+                <el-cascader
+                        v-model="search.tree"
+                        :options="option.tree"
+                        :props="{ expandTrigger: 'hover' }"
+                        filterable
+                >
+
+                </el-cascader>
             </el-form-item>
             <el-form-item label="时间">
                 <el-date-picker
@@ -37,7 +54,7 @@
             </el-table-column>
             <el-table-column label="操作">
                 <template slot-scope="scope">
-                    <el-button size="mini" @click="_jump(demo_update(scope.row.id))" >编辑</el-button>
+                    <el-button size="mini" @click="_jump(url_demo_update(scope.row.id))" >编辑</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -57,6 +74,30 @@
 [[block script()]]
 <script>
     window.__RENDER_DATA = {
+        option: {
+            user: [
+                {
+                    userID: 1,
+                    userName: "张三",
+                },
+                {
+                    userID: 2,
+                    userName: "李四",
+                }
+            ],
+            tree: [
+                {
+                    value: 'zhinan',
+                    label: '指南',
+                    children: [{value: 'yizhi', label: '一致'}, {value: 'fankui', label: '反馈'}, {value: 'xiaolv', label: '效率'}, {value: 'kekong', label: '可控'}],
+                },
+                {
+                    value: 'ziyuan',
+                    label: '资源',
+                    children: [{value: 'axure', label: 'Axure Components'}, {value: 'sketch', label: 'Sketch Templates'}, {value: 'jiaohu', label: '组件交互文档'}]
+                }
+            ]
+        },
         list: [
             {
                 id: 1,
