@@ -18,6 +18,9 @@
             <el-form-item label="多个文件" >
                 <ta-upload-list v-model="form.fileList" action="/admin/upload/file" ></ta-upload-list>
             </el-form-item>
+            <el-form-item label="编辑器" >
+                <ta-editor v-model="form.content" photo="/admin/upload/photo" > ></ta-editor>
+            </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="_submit(form)">{{_formKindLabel()}}</el-button>
             </el-form-item>
@@ -44,6 +47,7 @@
                 },
                 photoList: [],
                 fileList: [],
+                content: "",
             }
         }
     }

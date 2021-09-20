@@ -156,11 +156,17 @@ TA.m._listURL = function(path, data, page) {
 }
 import Upload from "./module/upload/index.js"
 Vue.component(Upload.name, Upload)
+
 import UploadList from "./module/uploadList/index.js"
 Vue.component(UploadList.name, UploadList)
+
 import Page from "./module/page/index.js"
 Vue.component(Page.name, Page)
+
 import Box from "./module/box/index.js"
 Vue.component(Box.name, Box)
+
+import Editor from "./module/editor/index.js"
+Vue.component(Editor.name, Editor)
 
 
