@@ -25,7 +25,7 @@ TA.m._formKindLabel = function() {
         'create': "创建",
         'update': "编辑",
     }
-    return map[qs.parse(location.search).formKind || this.formKind] || ''
+    return map[qs.parse(location.search).formKind || this.formKind || __RENDER_DATA.formKind] || ''
 }
 // 读取页面搜索参数
 TA.m._readSearch = function() {
@@ -169,4 +169,6 @@ Vue.component(Box.name, Box)
 import Editor from "./module/editor/index.js"
 Vue.component(Editor.name, Editor)
 
-
+window.onload = function (){
+    document.getElementById('ta-app').style.display="block"
+}
