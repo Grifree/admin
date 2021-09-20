@@ -20,6 +20,15 @@ export default {
                 src: "",
                 filename:"",
             }]))
+        },
+        inputItem(inputIndex, value) {
+            const vm = this
+            vm.$emit("input", vm.value.map(function (item, index){
+                if (inputIndex === index) {
+                    return value
+                }
+                return item
+            }))
         }
     },
 }

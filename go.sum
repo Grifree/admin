@@ -14,6 +14,10 @@ github.com/goclub/http v0.0.0-20210825064926-025f7f43ce47 h1:s+7aiUTcVlR6rSaZqfj
 github.com/goclub/http v0.0.0-20210825064926-025f7f43ce47/go.mod h1:IzI1F2agBK2Ijp84DZijCfApaNtKMpHZ6FKkl3xZwR4=
 github.com/goclub/http v0.0.0-20210919142123-389e7376e9a4 h1:2fXEPM+7pE06xes+1xedhoKFYvrXOIfkEqCSEaHvuv4=
 github.com/goclub/http v0.0.0-20210919142123-389e7376e9a4/go.mod h1:IzI1F2agBK2Ijp84DZijCfApaNtKMpHZ6FKkl3xZwR4=
+github.com/goclub/http v0.0.0-20210919152540-e06f5b825b2a h1:yeR3A+ed50IpQ+vKjCWtt11ZAWPzc6l1ddp9Zo/m0s8=
+github.com/goclub/http v0.0.0-20210919152540-e06f5b825b2a/go.mod h1:j46lid8hpeA37qr5UktiZEfQBhrs+xiU5QRaRP9CmGY=
+github.com/goclub/http v0.0.0-20210920134756-9b77f551b3e1 h1:N4Xc7gGv2ijYTB8wFDPBGL+NLDlMWvXvPg+kYTUB+NM=
+github.com/goclub/http v0.0.0-20210920134756-9b77f551b3e1/go.mod h1:j46lid8hpeA37qr5UktiZEfQBhrs+xiU5QRaRP9CmGY=
 github.com/goclub/json v0.0.0-20201212033753-4350fe0a941e/go.mod h1:K7bX26XRz/QHEzyXUZNCYwN8yQsrfedeC1hhsE9HcRk=
 github.com/goclub/json v0.0.0-20201216064424-4c200d38c18f/go.mod h1:K7bX26XRz/QHEzyXUZNCYwN8yQsrfedeC1hhsE9HcRk=
 github.com/goclub/json v0.0.0-20210727105554-d12671f7a3fb h1:Yb0/VK5pvZvRcKam/sQ5ESkM5SJWxzvSxVqPCyeTc3E=

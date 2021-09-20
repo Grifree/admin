@@ -7,16 +7,14 @@ import (
 	xerr "github.com/goclub/error"
 	xhttp "github.com/goclub/http"
 	xjson "github.com/goclub/json"
-	"log"
 	"net/http"
 	"reflect"
+	"time"
 )
 
 var view *jet.Set
 
 func init (){
-	// root := path.Join(os.Getenv("GOPATH"), "github.com/2type/admin",)
-	// log.Print(root)
 	loader := jet.NewOSFileSystemLoader("./view")
 	opts := []jet.Option{}
 	opts = append(opts, jet.InDevelopmentMode())
@@ -35,7 +33,16 @@ func init (){
 	})
 }
 
+type JetRender struct {
 
+}
+
+func (j JetRender) Render(templatePath string, data interface{}, w http.ResponseWriter) (err error) {
+	t, err := view.GetTemplate(templatePath) ; if err != nil {
+	    return
+	}
+	return t.Execute(w, nil, data)
+}
 
 type Any map[string]interface{}
 type UploadRes struct {
@@ -44,68 +51,104 @@ type UploadRes struct {
 	Src string `json:"src"`
 	xerr.Resp
 }
+type JumpRes struct {
+	Jump string `json:"jump"`
+	xerr.Resp
+}
 func main () {
-	router := xhttp.NewRouter(xhttp.RouterOption{
+	ms := xhttp.NewMockServer(xhttp.MockServerOption{
+		DefaultReply: map[string]interface{}{
+			"pass": xerr.Resp{},
+			"fail": xerr.Resp{
+				Error: xerr.RespError{
+					Code:    1,
+					Message: "xxx错误",
+				},
+			},
+		},
+		Render: JetRender{},
+	})
+	ms.URL(xhttp.Mock{
+		Route:               xhttp.Route{xhttp.POST, "/admin/upload/photo"},
+		Reply:               xhttp.MockReply{
+			"pass": UploadRes{
+				Src: "https://picsum.photos/200/100",
+				ID: "https://picsum.photos/200/100",
+			},
+		},
+	})
+	ms.URL(xhttp.Mock{
+		Route:               xhttp.Route{xhttp.POST, "/admin/upload/file"},
+		Reply:               xhttp.MockReply{
+			"pass": UploadRes{
+				Filename: "abc.csv",
+				ID: "some_id",
+			},
+		},
+	})
+	ms.URL(xhttp.Mock{
+		Route:               xhttp.Route{xhttp.GET, "/admin/login"},
+		Render: "login.html",
+	})
+	ms.URL(xhttp.Mock{
+		Route:               xhttp.Route{xhttp.POST, "/admin/login"},
+		Reply:               xhttp.MockReply{
+			"pass": JumpRes{
+				Jump: "/admin/home",
+			},
+		},
+	})
+	ms.URL(xhttp.Mock{
+		Route:               xhttp.Route{xhttp.GET, "/admin/home"},
+		Render: "home.html",
+	})
+	ms.URL(xhttp.Mock{
+		Route:               xhttp.Route{xhttp.GET, "/admin/demo_list"},
+		Render: "demo_list.html",
+	})
+	ms.URL(xhttp.Mock{
+		Route:               xhttp.Route{xhttp.GET, "/admin/demo_update"},
+		Render: "demo_form.html",
+		Reply:               xhttp.MockReply{
+			"pass": Any{
+				"formKind": "update",
+			},
+		},
+	})
+	ms.URL(xhttp.Mock{
+		Route:               xhttp.Route{xhttp.GET, "/admin/demo_create"},
+		Render: "demo_form.html",
+		Reply:               xhttp.MockReply{
+			"pass": Any{
+				"formKind": "create",
+			},
+		},
+	})
+	ms.URL(xhttp.Mock{
+		Route:               xhttp.Route{xhttp.GET, "/captcha"},
+		HandleFunc: func(c *xhttp.Context, data interface{}) (err error) {
+			_, err = xcaptcha.New(c.Writer, xcaptcha.Option{}) ; if err != nil {
+				return
+			}
+			return
+		},
+	})
+	ms.URL(xhttp.Mock{
+		Route:               xhttp.Route{xhttp.POST, "/sms/send"},
+	})
+	ms.PrefixHandle("/public", NoCacheFileServer{"./"})
+	ms.Listen(4122)
+}
 
-	})
-	router.HandleFunc(xhttp.Route{xhttp.POST, "/admin/upload/photo"}, func(c *xhttp.Context) (err error) {
-		return c.WriteJSON(UploadRes{
-			Src: "https://picsum.photos/100",
-			ID: "https://picsum.photos/100",
-		})
-	})
-	router.HandleFunc(xhttp.Route{xhttp.POST, "/admin/upload/file"}, func(c *xhttp.Context) (err error) {
-		return c.WriteJSON(UploadRes{
-			Filename: "abc.csv",
-			ID: "some_id",
-		})
-	})
-	router.HandleFunc(xhttp.Route{xhttp.GET, "/admin/login"}, func(c *xhttp.Context) (err error) {
-		t, err := view.GetTemplate("login.html") ; if err != nil { return }
-		return t.Execute(c.Writer, nil, Any{})
-	})
-	router.HandleFunc(xhttp.Route{xhttp.POST, "/admin/login"}, func(c *xhttp.Context) (err error) {
-		return c.WriteJSON(struct {
-			Jump string `json:"jump"`
-			xerr.Resp
-		}{
-			Jump: "/admin/home",
-		})
-	})
-	router.HandleFunc(xhttp.Route{xhttp.GET, "/admin/home"}, func(c *xhttp.Context) (err error) {
-		t, err := view.GetTemplate("home.html") ; if err != nil { return }
-		return t.Execute(c.Writer, nil, Any{})
-	})
-	router.HandleFunc(xhttp.Route{xhttp.GET, "/admin/demo_list"}, func(c *xhttp.Context) (err error) {
-		t, err := view.GetTemplate("demo_list.html") ; if err != nil { return }
-		return t.Execute(c.Writer, nil, Any{})
-	})
-	router.HandleFunc(xhttp.Route{xhttp.GET, "/admin/demo_update"}, func(c *xhttp.Context) (err error) {
-		t, err := view.GetTemplate("demo_form.html") ; if err != nil { return }
-		return t.Execute(c.Writer, nil, Any{
-			"formKind": "update",
-		})
-	})
-	router.HandleFunc(xhttp.Route{xhttp.GET, "/admin/demo_create"}, func(c *xhttp.Context) (err error) {
-		t, err := view.GetTemplate("demo_form.html") ; if err != nil { return }
-		return t.Execute(c.Writer, nil, Any{
-			"formKind": "create",
-		})
-	})
-	router.HandleFunc(xhttp.Route{xhttp.GET, "/captcha"}, func(c *xhttp.Context) (err error) {
-		_, err = xcaptcha.New(c.Writer, xcaptcha.Option{}) ; if err != nil {
-		    return
-		}
-		return
-	})
-	router.HandleFunc(xhttp.Route{xhttp.POST,"/sms/send",}, func(c *xhttp.Context) (err error) {
-		return c.WriteJSON(xerr.Resp{})
-	})
-	server := &http.Server{
-		Addr: ":4122",
-		Handler: router,
-	}
-	router.LogPatterns(server)
-	router.FileServer("/public", "./") // 演示项目,正式项目不要将整个目录作为静态资源
-	log.Print(server.ListenAndServe())
+type NoCacheFileServer struct {
+	Dir string
+}
+
+func (n NoCacheFileServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	w.Header().Add("Cache-control", "no-cache")
+	w.Header().Add("Cache-control", "no-store")
+	w.Header().Add("Expires", "0")
+	w.Header().Add("Last-Modified", time.Now().String())
+	w.Header().Add("Pragma", "no-cache")
+	http.FileServer(http.Dir(n.Dir)).ServeHTTP(w, r)
 }

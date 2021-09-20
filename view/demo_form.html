@@ -13,7 +13,10 @@
                 <ta-upload v-model="form.file" action="/admin/upload/file" ></ta-upload>
             </el-form-item>
             <el-form-item label="多个图片" >
-                <ta-upload-list v-model="form.photoList" action="/mock/photo.json" ></ta-upload-list>
+                <ta-upload-list v-model="form.photoList" action="/admin/upload/photo" ></ta-upload-list>
+            </el-form-item>
+            <el-form-item label="多个文件" >
+                <ta-upload-list v-model="form.fileList" action="/admin/upload/file" ></ta-upload-list>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="_submit(form)">{{_formKindLabel()}}</el-button>
@@ -40,6 +43,7 @@
                     id: "",
                 },
                 photoList: [],
+                fileList: [],
             }
         }
     }

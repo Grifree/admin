@@ -163,7 +163,4 @@ Vue.component(Page.name, Page)
 import Box from "./module/box/index.js"
 Vue.component(Box.name, Box)
 
-setTimeout(function () {
-    document.getElementById('ta-app').style.display = 'block'
-}, 0)
 
