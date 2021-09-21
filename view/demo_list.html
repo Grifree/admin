@@ -2,8 +2,8 @@
 [[block main()]]
 <ta-page :header="header">
     <ta-box title="商品列表">
-        <div style="margin-bottom: 1em;">
-            <el-button @click="_jump(url_demo_create())" >创建</el-button>
+        <div style="margin-bottom: 1em;text-align: right;">
+            <el-button @click="_jump(url_demo_create())" type="primary" >创建</el-button>
         </div>
         <el-form :inline="true"  >
             <el-form-item label="标题">
