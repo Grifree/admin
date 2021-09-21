@@ -51,8 +51,10 @@ type UploadRes struct {
 	Src string `json:"src"`
 	xerr.Resp
 }
-type JumpRes struct {
+type ControlRes struct {
 	Jump string `json:"jump"`
+	JumpArgs []interface{} `json:"jumpArgs"`
+	SuccessMessage string `json:"successMessage"`
 	xerr.Resp
 }
 func main () {
@@ -93,7 +95,7 @@ func main () {
 	ms.URL(xhttp.Mock{
 		Route:               xhttp.Route{xhttp.POST, "/admin/login"},
 		Reply:               xhttp.MockReply{
-			"pass": JumpRes{
+			"pass": ControlRes{
 				Jump: "/admin/home",
 			},
 		},
@@ -127,7 +129,9 @@ func main () {
 	ms.URL(xhttp.Mock{
 		Route:               xhttp.Route{xhttp.POST, "/admin/demo_create"},
 		Reply:               xhttp.MockReply{
-			"pass": xerr.Resp{},
+			"pass": ControlRes{
+				SuccessMessage: "创建成功",
+			},
 		},
 	})
 	ms.URL(xhttp.Mock{

@@ -16,7 +16,6 @@ export default {
         const editor = new wangEditor(vm.$refs.editor)
         editor.config.onchange = (newHtml) => {
             vm.editorData = newHtml
-            console.log(newHtml)
             vm.$emit("input", newHtml)
         }
         // editor.config.uploadImgServer = vm.photo

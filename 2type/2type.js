@@ -11,8 +11,16 @@ TA.qs = qs
 //  https://axios-http.com/zh/docs/api_intro
 TA.axios = axios
 
-document.onkeydown = function(event) { switch (event.keyCode) { case 91: TA._data.commandKeyDown = true }};
-document.onkeyup = function(event) { switch (event.keyCode) { case 91: TA._data.commandKeyDown = false } };
+document.onkeydown = function(event) {
+    if (event.key === 91) {
+        TA._data.commandKeyDown = true
+    }
+}
+document.onkeyup = function(event) {
+    if (event.key === 91) {
+        TA._data.commandKeyDown = false
+    }
+}
 
 TA.DATA = {
     commandKeyDown: false
@@ -155,16 +163,21 @@ TA.m._find = function (searchEnum, searchKey, searchValue) {
 TA.default = {
     hook: {
         req: {
+            // 错误消息弹窗 {"code":1, "message":"标题重复"}
             failCallback: function (res) {
                 ELEMENT.Message({
                     type: 'error',
                     message: res.data.error.message,
                 })
             },
+            // 控制跳转到任意地址 {"jump":"https://github.com/2type/admin", "code":0, "message":""}
+            // 控制跳转到 TA.m {"jump":"url_home()", "code":0, "message":""}
+            // 控制跳转到 TA.m 带参数 {"jump":"url_demo_update()", "jumpArgs": [1], "code":0, "message":""}
+            // 成功提示 {"successMessage": "创建成功","code":0, "message":""}
             passCallback: function (res) {
                 res.data = res.data || {}
                 if (res.data.jump) {
-                    if (/\(\)$/.test(res.data.jump) && /^url_/.test(res.data.jump)) {
+                    if (/^url_/.test(res.data.jump) && /\(\)$/.test(res.data.jump)) {
                         const urlKey = res.data.jump.replace("()")
                         console.log("跳转至 TA.m." + urlKey)
                         const urlfn = TA.m[urlKey]
@@ -175,7 +188,7 @@ TA.default = {
                             })
                             return
                         }
-                        res.data.jump = urlfn()
+                        urlfn.apply(TA.m, res.data.jumpArgs)
                     }
                     let page = res.data.jumpPageName || res.data.jump
                     ELEMENT.Message({
@@ -186,6 +199,10 @@ TA.default = {
                         TA.m._jump(res.data.jump)
                     }, 1000)
                 }
+                ELEMENT.Message({
+                    type: 'success',
+                    message: res.data.successMessage || '操作成功',
+                })
             }
         }
     }

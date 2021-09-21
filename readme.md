@@ -210,6 +210,8 @@ config 参数是 [axios](https://axios-http.com/zh/docs/api_intro) 的参数.
 `TA.hook.req.handleError` 来匹配后端接口.
 
 ```js
+// 后端操作成功响应: {"error": {"code": 0, "message": ""}}
+// 后端操作失败响应: {"error": {"code": 1, "message": "标题重复"}}
 TA.hook._req.handleError= function (res, passCallback, failCallback) {
     // 数据格式补全
     res.data.error = res.data.error || {}

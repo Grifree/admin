@@ -1,7 +1,7 @@
 TA.hook = {}
 TA.hook._req = TA.hook._req || {}
 // 后端操作成功响应: {"error": {"code": 0, "message": ""}}
-// 后盾操作失败响应: {"error": {"code": 1, "message": "标题重复"}}
+// 后端操作失败响应: {"error": {"code": 1, "message": "标题重复"}}
 TA.hook._req.handleError= function (res, passCallback, failCallback) {
     // 数据格式补全
     res.data.error = res.data.error || {}
