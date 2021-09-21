@@ -2,7 +2,7 @@ import template from "./tpl.js"
 export default {
     name: "ta-upload",
     template: template,
-    props: ['value','action', 'disabled'],
+    props: ['value','action', 'disabled',],
     data:function () {
         return {
 

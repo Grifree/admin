@@ -2,9 +2,9 @@
 [[block main()]]
 <ta-page :header="header">
     <ta-box title="商品列表">
-        <div style="margin-bottom: 1em;text-align: right;">
+        <template slot="tools">
             <el-button @click="_jump(url_demo_create())" type="primary" >创建</el-button>
-        </div>
+        </template>
         <el-form :inline="true"  >
             <el-form-item label="标题">
                 <el-input v-model="search.title"></el-input>
