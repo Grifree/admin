@@ -13,7 +13,7 @@ export default {
             var res = {
                 data: data
             }
-            if (TA.hook._req.handleError(res, TA.default.hook.req.passCallback, TA.default.hook.req.failCallback) == false) {
+            if (TA.hook._req.handleError(res, TA.hook.req.passCallback, TA.hook.req.failCallback) == false) {
                 this.$emit('input', {
                     id: res.data.id,
                     src: res.data.src,
