@@ -1,11 +1,19 @@
 [[extends "./layout/page.html"]]
 [[block main()]]
 <ta-page :header="header">
-    <ta-box title="统计">
-        <!-- 使用 ref 配合echarts 渲染图表 -->
-        <div ref="saleChartNode" style="height: 400px;"></div>
-    </ta-box>
     <el-row :gutter="20">
+        <el-col :span="12">
+            <ta-box title="年龄统计">
+                <!-- 使用 ref 配合渲染图表 -->
+                <div ref="g2ChartNode" style="width:100%;height:300px" ></div>
+            </ta-box>
+        </el-col>
+        <el-col :span="12">
+            <ta-box title="推广统计">
+                <!-- 使用 ref 配合渲染图表 -->
+                <div ref="saleChartNode" style="height:300px" ></div>
+            </ta-box>
+        </el-col>
         <el-col :span="12">
             <ta-box title="Top5 客户">
                 <el-table
@@ -135,6 +143,7 @@
     }
 </script>
 <script type="module" >
+    import { Chart } from 'https://cdn.skypack.dev/@antv/g2@v4.1.27';
     import echarts from "https://esm.nimo.run/echarts@4.1.0"
     const header = [
         {
@@ -154,15 +163,73 @@
         },
         created() {
             const vm = this
-            // 一定要延迟渲染
             setTimeout(function (){
                 // 使用前请确保 <script type="module" > 起始处引用了
                 // import echarts from "https://esm.nimo.run/echarts@4.1.0"
                 var chart = echarts.init(vm.$refs.saleChartNode);
                 // 配置参考 https://echarts.apache.org/examples/zh/editor.html?c=line-stack
-                let option = {title: {text: '堆叠区域图'}, tooltip: {trigger: 'axis', axisPointer: {type: 'cross', label: {backgroundColor: '#6a7985'} } }, legend: {data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎'] }, toolbox: {feature: {saveAsImage: {} } }, grid: {left: '3%', right: '4%', bottom: '3%', containLabel: true }, xAxis: [{type: 'category', boundaryGap: false, data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'] } ], yAxis: [{type: 'value'} ], series: [{name: '邮件营销', type: 'line', stack: '总量', areaStyle: {}, emphasis: {focus: 'series'}, data: [120, 132, 101, 134, 90, 230, 210] }, {name: '联盟广告', type: 'line', stack: '总量', areaStyle: {}, emphasis: {focus: 'series'}, data: [220, 182, 191, 234, 290, 330, 310] }, {name: '视频广告', type: 'line', stack: '总量', areaStyle: {}, emphasis: {focus: 'series'}, data: [150, 232, 201, 154, 190, 330, 410] }, {name: '直接访问', type: 'line', stack: '总量', areaStyle: {}, emphasis: {focus: 'series'}, data: [320, 332, 301, 334, 390, 330, 320] }, {name: '搜索引擎', type: 'line', stack: '总量', label: {show: true, position: 'top'}, areaStyle: {}, emphasis: {focus: 'series'}, data: [820, 932, 901, 934, 1290, 1330, 1320] } ] };
+                let option = { tooltip: {trigger: 'axis', axisPointer: {type: 'cross', label: {backgroundColor: '#6a7985'} } }, legend: {data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎'] }, toolbox: {feature: {saveAsImage: {} } }, grid: {left: '3%', right: '4%', bottom: '3%', containLabel: true }, xAxis: [{type: 'category', boundaryGap: false, data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'] } ], yAxis: [{type: 'value'} ], series: [{name: '邮件营销', type: 'line', stack: '总量', areaStyle: {}, emphasis: {focus: 'series'}, data: [120, 132, 101, 134, 90, 230, 210] }, {name: '联盟广告', type: 'line', stack: '总量', areaStyle: {}, emphasis: {focus: 'series'}, data: [220, 182, 191, 234, 290, 330, 310] }, {name: '视频广告', type: 'line', stack: '总量', areaStyle: {}, emphasis: {focus: 'series'}, data: [150, 232, 201, 154, 190, 330, 410] }, {name: '直接访问', type: 'line', stack: '总量', areaStyle: {}, emphasis: {focus: 'series'}, data: [320, 332, 301, 334, 390, 330, 320] }, {name: '搜索引擎', type: 'line', stack: '总量', label: {show: true, position: 'top'}, areaStyle: {}, emphasis: {focus: 'series'}, data: [820, 932, 901, 934, 1290, 1330, 1320] } ] };
                 chart.setOption(option);
-            }, 500)
+            }, 1000)
+            // 一定要延迟渲染
+            setTimeout(function (){
+                // https://g2.antv.vision/zh/docs/manual/getting-started
+                const data = [
+                    { type: '未知', value: 654, percent: 0.02 },
+                    { type: '17 岁以下', value: 654, percent: 0.02 },
+                    { type: '18-24 岁', value: 4400, percent: 0.2 },
+                    { type: '25-29 岁', value: 5300, percent: 0.24 },
+                    { type: '30-39 岁', value: 6200, percent: 0.28 },
+                    { type: '40-49 岁', value: 3300, percent: 0.14 },
+                    { type: '50 岁以上', value: 1500, percent: 0.06 },
+                ];
+
+                const chart = new Chart({
+                    container: vm.$refs.g2ChartNode,
+                    autoFit: true,
+                    padding: [50, 20, 50, 20],
+                });
+                chart.data(data);
+                chart.scale('value', {
+                    alias: '销售额(万)',
+                });
+
+                chart.axis('type', {
+                    tickLine: {
+                        alignTick: false,
+                    },
+                });
+                chart.axis('value', false);
+
+                chart.tooltip({
+                    showMarkers: false,
+                });
+                chart.interval().position('type*value');
+                chart.interaction('element-active');
+
+            // 添加文本标注
+                data.forEach((item) => {
+                    chart
+                        .annotation()
+                        .text({
+                            position: [item.type, item.value],
+                            content: item.value,
+                            style: {
+                                textAlign: 'center',
+                            },
+                            offsetY: -30,
+                        })
+                        .text({
+                            position: [item.type, item.value],
+                            content: (item.percent * 100).toFixed(0) + '%',
+                            style: {
+                                textAlign: 'center',
+                            },
+                            offsetY: -12,
+                        });
+                });
+                chart.render();
+            }, 1000)
         },
         methods: {
             ...TA.m,
