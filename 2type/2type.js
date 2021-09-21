@@ -33,9 +33,31 @@ TA.m._readSearch = function() {
     }
     return JSON.parse(qs.parse(location.search).json)
 }
+document.onkeydown = function(event) {
+    switch (event.keyCode) {
+        case 91:
+            TA._data.commandKeyDown = true
+    }
+};
+document.onkeyup = function(event) {
+    switch (event.keyCode) {
+        case 91:
+            TA._data.commandKeyDown = false
+    }
+};
+TA._data = {
+    commandKeyDown: false
+}
 // 跳转至 url
 TA.m._jump = function (url) {
-    location.href = url
+    if (TA._data.commandKeyDown) {
+        window.open(url)
+    } else {
+         location.href = url
+    }
+}
+TA.m._open = function (url) {
+    window.open(url)
 }
 // 提交数据到当前页面
 TA.m._submit = function(data, passCallback, failCallback) {
@@ -107,7 +129,7 @@ TA.default = {
                         message: '即将跳转至: ' + page,
                     })
                     setTimeout(function () {
-                        location.href = res.data.jump
+                        TA.m._jump(res.data.jump)
                     }, 1000)
                 }
             }
@@ -141,17 +163,25 @@ TA.m._req = function (config, passCallback, failCallback) {
 TA.m._list = function (data, page) {
     TA.m._listURL(location.pathname, data, page)
 }
+TA.m._export = function (data) {
+    TA.m._exportURL(location.pathname, data)
+}
+TA.m._exportURL = function (path, data) {
+    data.export = true
+    TA.m._open(path + "?" + TA.qs.stringify({
+        json: JSON.stringify(data)
+    }))
+}
 // 列表页跳转专用
 TA.m._listURL = function(path, data, page) {
-    path = path
     if (page) {
         data['page'] = page
     } else {
         data['page'] = 1
     }
-    location.href = path + "?" + TA.qs.stringify({
+    TA.m._jump(path + "?" + TA.qs.stringify({
         json: JSON.stringify(data)
-    })
+    }))
 }
 import Upload from "./module/upload/index.js"
 Vue.component(Upload.name, Upload)

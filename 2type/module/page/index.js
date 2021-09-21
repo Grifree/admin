@@ -11,9 +11,9 @@ export default {
         }
     },
     methods: {
-        handleSelect(index) {
-            if (index) {
-                location.href = index
+        handleSelect(url) {
+            if (url) {
+                TA.m._jump(url)
             }
         },
         isEmptyArray(arr) {
