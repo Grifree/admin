@@ -44,7 +44,7 @@
                 <el-button type="primary" @click="_list(search)">查询</el-button>
             </el-form-item>
             <el-form-item>
-                <el-button type="info" @click="_export(search)">导出</el-button>
+                <el-button @click="_export(search)">导出</el-button>
             </el-form-item>
         </el-form>
         <el-table :data="list" style="width: 100%">
