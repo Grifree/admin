@@ -29,7 +29,7 @@ export default {
                     data:data,
                     headers: {'Content-Type': 'multipart/form-data'}
                 }, function (res){
-                    TA.hook.editor.insertImage(res.data.src, insertImgFn)
+                    TA.hook.editor.insertImage(res, insertImgFn)
                 })
             })
         }

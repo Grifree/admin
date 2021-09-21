@@ -21,6 +21,7 @@ TA.hook._req.handleError= function (res, passCallback, failCallback) {
 }
 // 配置富文本编辑器的上传图片插入
 TA.hook.editor.insertImage = function (res, insert) {
+    console.log("TA.hook.editor.insertImage:res:", res)
     insert(res.data.src)
 }
 TA.hook.req = {
