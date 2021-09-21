@@ -39,10 +39,23 @@ export default
         <el-container>
             <el-header  style="height:auto;padding:1em;border-bottom:1px solid #eee;position:relative;z-idnex:2;">
                 <div  style="float:right;" >
-                    <el-link :href="nav.logoutURL" target="_blank">
-                        <img src="https://2type.nimo.run/icon/dusty-blue/exit.svg" alt="" class="ta-icon">
-                        退出
-                    </el-link>                
+                    <el-dropdown :hide-on-click="false">
+                      <div>
+                          <el-image
+                              style="width: 30px; height: 30px;border-radius: 50%;margin-bottom: -0.8em;"
+                              :src="nav.user.avatar"
+                              fit="contain"
+                           ></el-image>
+                              {{nav.user.name}}
+                              <i class="el-icon-arrow-down el-icon--right"></i> 
+                        </div>
+                      <el-dropdown-menu slot="dropdown">
+                          <el-dropdown-item>
+                            <el-link :href="nav.logoutURL" target="_blank">退出</el-link>
+                          </el-dropdown-item>
+                        </el-dropdown-item>
+                      </el-dropdown-menu>
+                    </el-dropdown>
                 </div>
                 <el-breadcrumb separator="/">
                     <el-breadcrumb-item key="1">

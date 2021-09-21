@@ -120,6 +120,10 @@ TA.nav = {
     top: {
         logo: 'https://2type.nimo.run/icon/logo.svg',
     },
+    user: {
+        avatar: "https://2type.github.io/icon/user-male.svg",
+        name: "admin",
+    },
     // 退出登录
     logoutURL: TA.m.url_logout(),
     // 导航
