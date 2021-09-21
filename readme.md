@@ -450,7 +450,7 @@ new Vue({
 })
 ```
 
-### open(url)
+### _open(url)
 
 与 `TA.m._jump()` 方法类似,不同处在于 `TA.m.open()` 会**打开新页面**
 
