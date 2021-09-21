@@ -119,6 +119,7 @@ TA.m._req = function (config, passCallback, failCallback) {
         TA.hook._req.handleError(res, passCallback, failCallback)
     }).catch(function (err) {
         loading.close()
+        console.error(err)
         alert(err)
     })
 }
