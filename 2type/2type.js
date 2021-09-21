@@ -4,72 +4,137 @@ import dayjs from "https://esm.nimo.run/dayjs@1.8.21"
 window.TA = {
     m: {},
 }
+// https://dayjs.gitee.io/docs/zh-CN/manipulate/manipulate
 TA.dayjs = dayjs
+// https://www.npmjs.com/package/query-string/v/7.0.0
 TA.qs = qs
+//  https://axios-http.com/zh/docs/api_intro
+TA.axios = axios
+
+document.onkeydown = function(event) { switch (event.keyCode) { case 91: TA._data.commandKeyDown = true }};
+document.onkeyup = function(event) { switch (event.keyCode) { case 91: TA._data.commandKeyDown = false } };
+
+TA.DATA = {
+    commandKeyDown: false
+}
+/*
+* 跳转页面
+* @param {string} url
+* */
+TA.m._jump = function (url) {
+    if (TA.DATA.commandKeyDown) {
+        window.open(url)
+    } else {
+        location.href = url
+    }
+}
+/*
+* 打开新页面
+* @param {string} url
+* */
+TA.m._open = function (url) {
+    window.open(url)
+}
+/*
+* 当前是否是演示环境
+* @return {boolean}
+* */
 TA.m._isDemo = function() {
     return ['localhost', 'admin.2type.cn'].some(function (item){
         return item == location.hostname
     })
 }
-// 返回页面 GET 参数,
+/*
+* 返回页面 GET 参数
+* @return {object}
+* @example _query().id // 在 https://domain.com/path?id=abc 页面中返回 abc
+* */
 // /news?id=1&name=nimo 返回 {id:"1",name:"nimo"}
 TA.m._query = function() {
     return qs.parse(location.search)
 }
-// 返回 formKind 对应的中文
-// 当页面url 包含 ?formKind=create 时返回 "创建"
-// 当页面url 包含 ?formKind=update 时返回 "编辑"
+/*
+* 返回 formKind 对应的中文
+* @return {string}
+* */
 TA.m._formKindLabel = function() {
     let map = {
         'create': "创建",
         'update': "编辑",
     }
-    return map[qs.parse(location.search).formKind || this.formKind || __RENDER_DATA.formKind] || ''
+    let vm = this
+    let query = qs.parse(location.search)
+    let RenderData = __RENDER_DATA
+    let key =  vm.formKind || query.formKind || RenderData.formKind
+    return map[key] || '提交'
 }
-// 读取页面搜索参数
+
+/*
+* 读取页面搜索参数
+* return {object}
+* */
 TA.m._readSearch = function() {
     if (!qs.parse(location.search).json) {
         return {}
     }
     return JSON.parse(qs.parse(location.search).json)
 }
-document.onkeydown = function(event) {
-    switch (event.keyCode) {
-        case 91:
-            TA._data.commandKeyDown = true
-    }
-};
-document.onkeyup = function(event) {
-    switch (event.keyCode) {
-        case 91:
-            TA._data.commandKeyDown = false
-    }
-};
-TA._data = {
-    commandKeyDown: false
+
+/*
+    发起请求
+    @param {config} axios 参数 - https://axios-http.com/zh/docs/api_intro
+    @param {function} passCallback
+    @param {function} failCallback
+*/
+TA.m._req = function (config, passCallback, failCallback) {
+    let settings = config
+    settings.responseType = settings.responseType || "json"
+    const loading = ELEMENT.Loading.service({
+        lock: true,
+        text: settings.$LoadingText || 'Loading',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)'
+    });
+    axios(settings).then(function (res) {
+        loading.close()
+        if (!failCallback) {
+            failCallback = TA.default.hook.req.failCallback
+        }
+        if (!passCallback) {
+            passCallback = TA.default.hook.req.passCallback
+        }
+        TA.hook._req.handleError(res, passCallback, failCallback)
+    }).catch(function (err) {
+        loading.close()
+        alert(err)
+    })
 }
-// 跳转至 url
-TA.m._jump = function (url) {
-    if (TA._data.commandKeyDown) {
-        window.open(url)
-    } else {
-         location.href = url
-    }
-}
-TA.m._open = function (url) {
-    window.open(url)
-}
-// 提交数据到当前页面
+
+/*
+* 提交数据到当前页面
+* @param {object} data - 数据
+* @param {function} passCallback - 成功回调
+* @param {function} failCallback - 失败回调
+* */
 TA.m._submit = function(data, passCallback, failCallback) {
     TA.m._submitURL(location.pathname, data, passCallback, failCallback)
 }
-// 提交数据到指定页面
+/*
+* 提交数据到 url
+* @param {string} url - 请求地址
+* @param {object} data - 数据
+* @param {function} passCallback - 成功回调
+* @param {function} failCallback - 失败回调
+* */
 TA.m._submitURL = function(url, data, passCallback, failCallback) {
     TA.m._req({
         method: "post",
         url: url,
         data:data,
     }, passCallback, failCallback)
+}
+TA.m._enum = function () {
+    return TA.enum
 }
 TA.m._find = function (searchEnum, searchKey, searchValue) {
     const data = TA.enum[searchEnum]
@@ -87,17 +152,6 @@ TA.m._find = function (searchEnum, searchKey, searchValue) {
     })
     return out
 }
-TA.m._enum = function () {
-    return TA.enum
-}
-/*
-    发起请求
-    config 参数 参考 http://www.axios-js.com/zh-cn/docs/
-    cb 参数是一个函数:
-    TA.m._req({...}, function(res) {
-      console.log(res)
-    })
-*/
 TA.default = {
     hook: {
         req: {
@@ -135,29 +189,6 @@ TA.default = {
             }
         }
     }
-}
-TA.m._req = function (config, passCallback, failCallback) {
-    let settings = config
-    settings.responseType = settings.responseType || "json"
-    const loading = ELEMENT.Loading.service({
-              lock: true,
-              text: settings.$LoadingText || 'Loading',
-              spinner: 'el-icon-loading',
-              background: 'rgba(0, 0, 0, 0.7)'
-            });
-    axios(settings).then(function (res) {
-        loading.close()
-        if (!failCallback) {
-            failCallback = TA.default.hook.req.failCallback
-        }
-        if (!passCallback) {
-            passCallback = TA.default.hook.req.passCallback
-        }
-        TA.hook._req.handleError(res, passCallback, failCallback)
-    }).catch(function (err) {
-        loading.close()
-        alert(err)
-    })
 }
 // 列表页跳转专用
 TA.m._list = function (data, page) {

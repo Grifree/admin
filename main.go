@@ -125,6 +125,12 @@ func main () {
 		},
 	})
 	ms.URL(xhttp.Mock{
+		Route:               xhttp.Route{xhttp.POST, "/admin/demo_create"},
+		Reply:               xhttp.MockReply{
+			"pass": xerr.Resp{},
+		},
+	})
+	ms.URL(xhttp.Mock{
 		Route:               xhttp.Route{xhttp.GET, "/captcha"},
 		HandleFunc: func(c *xhttp.Context, data interface{}) (err error) {
 			_, err = xcaptcha.New(c.Writer, xcaptcha.Option{}) ; if err != nil {
