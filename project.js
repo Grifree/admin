@@ -60,11 +60,12 @@ TA.hook.req = {
             setTimeout(function () {
                 TA.m._jump(res.data.jump)
             }, 1000)
+        } else {
+            ELEMENT.Message({
+                type: 'success',
+                message: res.data.successMessage || '操作成功',
+            })
         }
-        ELEMENT.Message({
-            type: 'success',
-            message: res.data.successMessage || '操作成功',
-        })
     }
 }
 

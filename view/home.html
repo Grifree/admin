@@ -1,9 +1,31 @@
 [[extends "./layout/page.html"]]
 [[block main()]]
 <ta-page :header="header">
+    <el-row :gutter="20" style="margin-bottom: 1em;">
+        <el-col :span="6">
+            <el-card header="总PV">
+                <h3 style="color:#409EFF;">{{sum.pv}}</h3>
+            </el-card>
+        </el-col>
+        <el-col :span="6">
+            <el-card header="总UV">
+                <h3 style="color:#67C23A;">{{sum.uv}}</h3>
+            </el-card>
+        </el-col>
+        <el-col :span="6">
+            <el-card header="总收益">
+                <h3 style="color:#E6A23C;">{{sum.earnings}}元</h3>
+            </el-card>
+        </el-col>
+        <el-col :span="6">
+            <el-card header="总客户数">
+                <h3 style="color:#909399;">{{sum.clients}}</h3>
+            </el-card>
+        </el-col>
+    </el-row>
     <el-row :gutter="20">
         <el-col :span="12">
-            <ta-box title="销售额">
+            <ta-box title="销量">
                 <!-- 使用 ref 配合渲染图表 -->
                 <div ref="g2ChartNode" style="width:100%;height:300px" ></div>
             </ta-box>
@@ -86,6 +108,12 @@
 [[block script()]]
 <script>
     window.__RENDER_DATA = {
+        sum: {
+            pv: 21451,
+            uv: 51234,
+            earnings:15124,
+            clients: 2441,
+        },
         top5Client: [
             {
                 name: "可口可乐",
@@ -169,7 +197,7 @@
                 // import * as echarts from "https://cdn.skypack.dev/echarts@5.2.1"
                 var chart = echarts.init(vm.$refs.saleChartNode);
                 // 配置参考 https://echarts.apache.org/examples/zh/editor.html?c=line-stack
-                const option = {tooltip: {trigger: 'axis'}, legend: {data: ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine'] }, grid: {left: '3%', right: '4%', bottom: '3%', containLabel: true }, toolbox: {feature: {saveAsImage: {} } }, xAxis: {type: 'category', boundaryGap: false, data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] }, yAxis: {type: 'value'}, series: [{name: 'Email', type: 'line', stack: 'Total', data: [120, 132, 101, 134, 90, 230, 210] }, {name: 'Union Ads', type: 'line', stack: 'Total', data: [220, 182, 191, 234, 290, 330, 310] }, {name: 'Video Ads', type: 'line', stack: 'Total', data: [150, 232, 201, 154, 190, 330, 410] }, {name: 'Direct', type: 'line', stack: 'Total', data: [320, 332, 301, 334, 390, 330, 320] }, {name: 'Search Engine', type: 'line', stack: 'Total', data: [820, 932, 901, 934, 1290, 1330, 1320] } ] };
+                const option = {tooltip: {trigger: 'axis'}, grid: {left: '3%', right: '4%', bottom: '3%', containLabel: true }, xAxis: {type: 'category', boundaryGap: false, data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'] }, yAxis: {type: 'value'}, series: [{name: '邮件', type: 'line', stack: 'Total', data: [120, 132, 101, 134, 90, 230, 210] }, {name: '广告', type: 'line', stack: 'Total', data: [220, 182, 191, 234, 290, 330, 310] }, {name: '视频', type: 'line', stack: 'Total', data: [150, 232, 201, 154, 190, 330, 410] }, {name: '短信', type: 'line', stack: 'Total', data: [320, 332, 301, 334, 390, 330, 320] }, {name: '搜索引擎', type: 'line', stack: 'Total', data: [820, 932, 901, 934, 1290, 1330, 1320] } ] };
                 chart.setOption(option);
             }, 1000)
             // 务必延迟渲染
@@ -178,7 +206,7 @@
                 // import { Chart } from 'https://cdn.skypack.dev/@antv/g2@v4.1.27'
 
                 // 配置参考https://g2.antv.vision/zh/docs/manual/getting-started
-                const data = [{"Data": "2016-03", "sales": 1745 }, {"Data": "2016-04", "sales": 1680}, {"Data": "2016-05", "sales": 1802}, {"Data": "2016-06", "sales": 1697 }, {"Data": "2016-07", "sales": 1583}, {"Data": "2016-08", "sales": 1456}, {"Data": "2016-09", "sales": 1524 }, {"Data": "2016-10", "sales": 1398}, {"Data": "2016-11", "sales": 1278}, {"Data": "2016-12", "sales": 1195 }, {"Data": "2017-01", "sales": 1145}, {"Data": "2017-02", "sales": 1244}]
+                const data = [{"Data": "2017-01", "sales": 1145}, {"Data": "2017-02", "sales": 1244}, {"Data": "2018-03", "sales": 1745 }, {"Data": "2018-04", "sales": 1680}, {"Data": "2018-05", "sales": 1802}, {"Data": "2018-06", "sales": 1697 }, {"Data": "2018-07", "sales": 1583}, {"Data": "2018-08", "sales": 1556}, {"Data": "2018-09", "sales": 1824 }, {"Data": "2018-10", "sales": 2398}, {"Data": "2018-11", "sales": 2278}, {"Data": "2018-12", "sales": 2695 }]
                 const chart = new Chart({
                     container: vm.$refs.g2ChartNode,
                     autoFit: true,
