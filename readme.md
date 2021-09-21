@@ -262,17 +262,19 @@ methods: {
 
 ## 第三方库
 
+时间处理
+https://dayjs.gitee.io/docs/zh-CN/manipulate/manipulate
 ```js
-// 时间处理
-// https://dayjs.gitee.io/docs/zh-CN/manipulate/manipulate
 TA.dayjs = dayjs
-
-// URL query 解析
-// https://www.npmjs.com/package/query-string/v/7.0.0
+```
+URL query 解析
+https://www.npmjs.com/package/query-string/v/7.0.0
+```js
 TA.qs = qs
-
-// http 请求(建议使用)
-//  https://axios-http.com/zh/docs/api_intro
+```
+http 请求(建议使用)
+https://axios-http.com/zh/docs/api_intro
+```js
 TA.axios = axios
 ```
 
@@ -296,7 +298,7 @@ new Vue({
 
 在页面点击创建按钮后即可跳转至 `https://github.com/2type/admin`
 
-### TA.m._jump(url:string)
+### _jump(url)
 
 **在模板中使用**
 
@@ -317,11 +319,11 @@ new Vue({
 })
 ```
 
-### TA.m.open(url:string)
+### open(url)
 
 与 `TA.m._jump()` 方法类似,不同处在于 `TA.m.open()` 会**打开新页面**
 
-### TA.m.url_home()
+### url_home()
 
 在 [./project.js](./project.js) 中以 `TA.m.url_` 作为前缀配置项目路由,用于同一管理跳转路径
 
@@ -368,7 +370,7 @@ TA.m.url_demo_list = function () {
 ```
 
 
-### TA.m._query()
+### _query()
 
 返回页面 GET 参数
 
@@ -396,7 +398,7 @@ new Vue({
 })
 ```
 
-### TA.m._formKindLabel()
+### _formKindLabel()
 
 返回 formKind 对应的中文
 
@@ -416,7 +418,7 @@ TA.m._formKindLabel = function() {
 }
 ```
 
-### TA.m._readSearch()
+### _readSearch()
 
 由前端从 url query 的 json 中获取搜索参数
 
@@ -460,7 +462,7 @@ TA.m._readSearch = function() {
 }
 ```
 
-### TA.m._req(config, passCallback, failCallback)
+### _req(config, passCallback, failCallback)
 
 发起 HTTP 请求
 
@@ -531,7 +533,7 @@ console.log(TA.hook.req.failCallback.toString())
 {"successMessage": "创建成功","code":0, "message":""}
 ```
 
-### TA.m._submit(form, passCallback, failCallback)
+### _submit(form, passCallback, failCallback)
 
 提交数据到当前页面
 
@@ -565,11 +567,11 @@ new Vue({
 })
 ```
 
-## TA.m._submitURL(url, data, passCallback, failCallback)
+## _submitURL(url, data, passCallback, failCallback)
 
 与 `TA.m._submit` 相同,区别是可以通过 url 配置请求地址
 
-## TA.m._list(search, page)
+## _list(search, page)
 
 > 2type/admin 对常见的列表分页进行了封装,配合 `_list` 可以非常方便的实现列表分页.
 
@@ -598,11 +600,11 @@ new Vue({
 </el-pagination>
 ```
 
-## TA.m._listURL(path, search, page)
+## _listURL(path, search, page)
 
 与 `TA.m._list` 相同,区别是可以通过 path 配置请求地址
 
-## TA.m._export(search)
+## _export(search)
 
 导出
 
@@ -616,11 +618,11 @@ new Vue({
 </el-form-item>
 ```
 
-## TA.m._exportURL(path, search)
+## _exportURL(path, search)
 
 与 `TA.m._export` 相同,区别是可以通过 path 配置请求地址
 
-## TA.m._enum()
+## _enum()
 
 ```js
 TA.m._enum = function () {
@@ -628,7 +630,7 @@ TA.m._enum = function () {
 }
 ```
 
-## TA.m._find(searchEnum, searchKey, searchValue)
+## _find(searchEnum, searchKey, searchValue)
 
 _find 可配置 enum 使用,例如 enum 配置如下:
 
