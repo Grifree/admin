@@ -79,3 +79,18 @@ body {
 .ta-upload-close:hover {
     color:#1989fa;
 }
+
+
+.ta-overview {
+    text-align: center;
+    table-layout: fixed;
+    width:100%;
+}
+.ta-overview > thead > tr > th {
+    font-size: 24px;
+    color: #409EFF;
+}
+.ta-overview > tbody > tr > td {
+    vertical-align: top;
+    line-height: 2;
+}

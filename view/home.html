@@ -1,28 +1,26 @@
 [[extends "./layout/page.html"]]
 [[block main()]]
 <ta-page :header="header">
-    <el-row :gutter="20" style="margin-bottom: 1em;">
-        <el-col :span="6">
-            <el-card header="总PV">
-                <h3 style="color:#409EFF;">{{sum.pv}}</h3>
-            </el-card>
-        </el-col>
-        <el-col :span="6">
-            <el-card header="总UV">
-                <h3 style="color:#67C23A;">{{sum.uv}}</h3>
-            </el-card>
-        </el-col>
-        <el-col :span="6">
-            <el-card header="总收益">
-                <h3 style="color:#E6A23C;">{{sum.earnings}}元</h3>
-            </el-card>
-        </el-col>
-        <el-col :span="6">
-            <el-card header="总客户数">
-                <h3 style="color:#909399;">{{sum.clients}}</h3>
-            </el-card>
-        </el-col>
-    </el-row>
+    <ta-box title="概览">
+        <table class="ta-overview">
+            <thead>
+            <tr>
+                <th>{{sum.pv}}</th>
+                <th style="color:#67C23A;">{{sum.uv}}</th>
+                <th style="color:#E6A23C;">{{sum.earnings}}</th>
+                <th style="color:#909399;">{{sum.clients}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>PV</td>
+                <td>UV</td>
+                <td>收益</td>
+                <td>客户数</td>
+            </tr>
+            </tbody>
+        </table>
+    </ta-box>
     <el-row :gutter="20">
         <el-col :span="12">
             <ta-box title="销量">
