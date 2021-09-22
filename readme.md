@@ -270,7 +270,7 @@ TA.hook.editor.insertImage = function (res, insert) {
 ### 图表
 
 ```html
-<div ref="g2ChartNode" style="height:300px" ></div>
+<div ref="g2ChartNode" style="mountedheight:300px" ></div>
 <div ref="saleChartNode" style="height:300px" ></div>
 ```
 
@@ -281,7 +281,7 @@ import * as echarts from "https://cdn.skypack.dev/echarts@5.2.1"
 ```
 
 ```js
-created() {
+mounted() {
     const vm = this
     setTimeout(function () {
         // 使用前请确保 <script type="module" > 起始处引用了
@@ -366,7 +366,8 @@ import echarts from "https://esm.nimo.run/echarts@4.1.0"
 
 ### 最好有一点vue基础
 
-https://cn.vuejs.org/v2/guide/
+1. 文档 https://cn.vuejs.org/v2/guide/
+2. 视频 https://learning.dcloud.io/
 
 ### 标签闭合
 
