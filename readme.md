@@ -270,7 +270,7 @@ TA.hook.editor.insertImage = function (res, insert) {
 ### 图表
 
 ```html
-<div ref="g2ChartNode" style="width:100%;height:300px" ></div>
+<div ref="g2ChartNode" style="height:300px" ></div>
 <div ref="saleChartNode" style="height:300px" ></div>
 ```
 
