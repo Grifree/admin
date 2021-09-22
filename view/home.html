@@ -31,7 +31,7 @@
         <el-col :span="12">
             <ta-box title="推广统计">
                 <!-- 使用 ref 配合渲染图表 -->
-                <div ref="saleChartNode" style="height:300px" ></div>
+                <div ref="saleChartNode" style="width:100%;height:300px" ></div>
             </ta-box>
         </el-col>
         <el-col :span="12">
@@ -200,10 +200,7 @@
                 window.onresize = function() {
                     chart.resize();
                 };
-            }, 1000)
-            setTimeout(function() {
-                chart.resize();
-            }, 10000)
+            }, 2000)
             // 务必延迟渲染
             setTimeout(function (){
                 // 使用前请确保 <script type="module" > 起始处引用了
@@ -239,7 +236,7 @@
                 chart.line().position('Data*sales');
                 chart.area().position('Data*sales');
                 chart.render();
-            }, 1000)
+            }, 2000)
         },
         methods: {
             ...TA.m,
