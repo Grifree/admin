@@ -355,7 +355,7 @@ mounted() {
 }
 ```
 
-## 注意事项
+## 必须阅读
 
 ### esm
 
@@ -364,12 +364,57 @@ mounted() {
 import echarts from "https://esm.nimo.run/echarts@4.1.0"
 ```
 
-
 ### 最好有一点vue基础
 
 https://cn.vuejs.org/v2/guide/
 
-### ...扩展语法
+### 标签闭合
+
+因为 Vue 模板是写在html中,而不是通过编译生成.所以应该确保每个标签都是有起始和结束.
+
+```html
+<!--正确-->
+<el-switch></el-switch>
+
+<!--错误-->
+<el-switch/>
+<!--错误-->
+<el-switch>
+```
+
+如果不按照正确的语法,会导致页面无法正常显示,或显示错误.
+
+### 后端数据
+
+页面中 `__RENDER_DATA` 变量是用来存放后端渲染数据的
+
+> 前端开发人员可以跳过后端数据这一部分内容,让后端同事看这一部分内容
+
+**某后端模板**
+```html
+<script>
+    window.__RENDER_DATA = [[raw(xjson(.))]]
+</script>
+```
+
+**某后端模板引擎渲染语法**
+```js
+var data = {
+    list: [{name:"2type"}]
+}
+var t = view.getTemplate("list.html")
+t.render(data)
+```
+
+**渲染结果**
+```html
+<script>
+    window.__RENDER_DATA = {list: [{name:"2type"}]}
+</script>
+```
+
+
+### ... 扩展语法
 
 > vm 指的是 `new Vue({...})` 创建的实例
 
@@ -452,7 +497,7 @@ new Vue({
 
 ### _open(url)
 
-与 `TA.m._jump()` 方法类似,不同处在于 `TA.m.open()` 会**打开新页面**
+与 `TA.m._jump()` 方法类似,不同处在于 `TA.m._open()` 会**打开新页面**
 
 ### url_home()
 
