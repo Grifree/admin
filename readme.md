@@ -281,7 +281,7 @@ import * as echarts from "https://cdn.skypack.dev/echarts@5.2.1"
 ```
 
 ```js
-mounted() {
+created() {
     const vm = this
     setTimeout(function () {
         // 使用前请确保 <script type="module" > 起始处引用了
