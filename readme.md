@@ -361,7 +361,7 @@ mounted() {
 
 项目中可直接使用 `import` 导入js模块,但要注意一定要在 `<script type="module" >` 标签的起始处, 必须有 `type="module"`. 
 ```js
-import echarts from "https://esm.nimo.run/echarts@4.1.0"
+import echarts from "https://cdn.skypack.dev/echarts@4.1.0"
 ```
 
 ### 最好有一点vue基础
