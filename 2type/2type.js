@@ -1,6 +1,6 @@
-import qs from "https://cdn.skypack.dev/query-string@7.0.0"
-import axios from "https://cdn.skypack.dev/axios@0.21.1"
-import dayjs from "https://cdn.skypack.dev/dayjs@1.8.21"
+import qs from "https://esm.nimo.run/query-string@7.0.0"
+import axios from "https://esm.nimo.run/axios@0.21.1"
+import dayjs from "https://esm.nimo.run/dayjs@1.8.21"
 window.TA = {
     m: {},
     default: {

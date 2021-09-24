@@ -16,13 +16,13 @@ export default
                  <template v-for="(item, index) in nav.items"  >
                     <el-menu-item v-if="isEmptyArray(item.items)" :index="item.url" :key="item.title" >
                         <div slot="title">
-                            <img class="ta-icon" :src="'https://2type.nimo.run/icon/'+ item.icon +'.svg'" />
+                            <img class="ta-icon" :src="'https://2type.github.io/icon/'+ item.icon +'.svg'" />
                             {{item.title}}
                         </div>
                     </el-menu-item>         
                     <el-submenu v-else :index="'i'+index" :key="item.title"  >
                         <div slot="title">
-                            <img class="ta-icon" :src="'https://2type.nimo.run/icon/'+ item.icon +'.svg'" />
+                            <img class="ta-icon" :src="'https://2type.github.io/icon/'+ item.icon +'.svg'" />
                             {{item.title}}
                         </div>
                         <el-menu-item v-for="sub in item.items" :index="sub.url" :key="sub.title"  >
