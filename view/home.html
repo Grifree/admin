@@ -51,14 +51,6 @@
                             prop="name"
                             label="客户名"
                             width="180">
-                        <template slot-scope="scope">
-                            <el-image
-                                    style="width: 30px; height: 30px;border-radius:50%;margin-bottom:-.4em;"
-                                    :src="scope.row.logo"
-                                    fit="contain"></el-image>
-                            </div>
-                            {{scope.row.name}}
-                        </template>
                     </el-table-column>
                     <el-table-column
                             prop="sale"
@@ -84,14 +76,6 @@
                             prop="name"
                             label="员工名"
                             width="180">
-                        <template slot-scope="scope">
-                            <el-image
-                                    style="width: 30px; height: 30px;border-radius:50%;margin-bottom:-.4em;"
-                                    :src="scope.row.avatar"
-                                    fit="contain"></el-image>
-                            </div>
-                            {{scope.row.name}}
-                        </template>
                     </el-table-column>
                     <el-table-column
                             prop="sale"
@@ -115,53 +99,43 @@
         top5Client: [
             {
                 name: "可口可乐",
-                logo: "https://picsum.photos/id/11/100/100",
                 sale: 102314
             },
             {
                 name: "百事可乐",
-                logo: "https://picsum.photos/id/12/100/100",
                 sale: 82414
             },
             {
                 name: "百岁山",
-                logo: "https://picsum.photos/id/13/100/100",
                 sale: 72412
             },
             {
                 name: "康师傅",
-                logo: "https://picsum.photos/id/14/100/100",
                 sale: 52351
             },
             {
                 name: "李施德林",
-                logo: "https://picsum.photos/id/15/100/100",
                 sale: 3251
             }
         ],
         top5staff: [
             {
-                avatar: "https://i.pravatar.cc/100?img=1",
                 name: "法外狂徒张三",
                 sale: 41512
             },
             {
-                avatar: "https://i.pravatar.cc/100?img=2",
                 name: "尼古拉斯赵四",
                 sale: 40021
             },
             {
-                avatar: "https://i.pravatar.cc/100?img=3",
                 name: "大刀王五",
                 sale: 3425
             },
             {
-                avatar: "https://i.pravatar.cc/100?img=4",
                 name: "独眼龙老六",
                 sale: 31224
             },
             {
-                avatar: "https://i.pravatar.cc/100?img=5",
                 name: "小瘸子刘七",
                 sale: 28983
             }
