@@ -174,7 +174,7 @@
                 window.onresize = function() {
                     chart.resize();
                 };
-            }, 2000)
+            }, 500)
             // 务必延迟渲染
             setTimeout(function (){
                 // 使用前请确保 <script type="module" > 起始处引用了
@@ -210,7 +210,7 @@
                 chart.line().position('Data*sales');
                 chart.area().position('Data*sales');
                 chart.render();
-            }, 2000)
+            }, 500)
         },
         methods: {
             ...TA.m,
