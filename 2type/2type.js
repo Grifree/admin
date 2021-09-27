@@ -237,7 +237,3 @@ Vue.component(Box.name, Box)
 
 import Editor from "./module/editor/index.js"
 Vue.component(Editor.name, Editor)
-
-window.onload = function (){
-    document.getElementById('ta-app').style.display="block"
-}

@@ -6,6 +6,7 @@ export default {
     data:function () {
         return {
             nav: TA.nav,
+            footer: TA.footer,
             isCollapse: false,
             navActive: location.pathname + location.search,
         }

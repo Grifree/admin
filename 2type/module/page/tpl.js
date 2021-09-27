@@ -72,7 +72,7 @@ export default
             </el-main>
             <el-footer height="auto">
                 <div style="text-align: center;padding:1em;opacity: 0.3;">
-                    <el-link href="https://github.com/2type/admin">@2type/admin</el-link>
+                    <el-link :href="footer.link.href">{{footer.link.text}}</el-link>
                 </div>
             </el-footer>
         </el-container>

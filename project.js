@@ -119,7 +119,7 @@ TA.m.url_demo_create = function () {
 TA.nav = {
     // 头部
     top: {
-        logo: 'https://2type.nimo.run/icon/logo.svg',
+        logo: 'https://2type.github.io/icon/logo.svg',
     },
     user: {
         avatar: "https://2type.github.io/icon/user-male.svg",
@@ -155,3 +155,9 @@ TA.nav = {
     ]
 }
 
+TA.footer = {
+    link: {
+        text: "@2type/admin",
+        href: "https://github.com/2type/admin",
+    }
+}

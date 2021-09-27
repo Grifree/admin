@@ -58,6 +58,91 @@
 1. [view/demo_list.html](./view/layout/demo_list.html) 列表页面
 1. [view/demo_form.html](./view/layout/demo_form.html) 创建和编辑页面 通过 __RENDER_DATA.formKind 控制创建和编辑的区别
 
+
+
+## 必须阅读
+
+### esm
+
+项目中可直接使用 `import` 导入js模块,但要注意一定要在 `<script type="module" >` 标签的起始处, 必须有 `type="module"`.
+
+在线 esm 模块: https://www.skypack.dev/
+
+国内加速镜像: https://esm.nimo.run/
+
+
+### 最好有一点vue基础
+
+1. 文档 https://cn.vuejs.org/v2/guide/
+2. 视频 https://learning.dcloud.io/
+
+### 标签闭合
+
+因为 Vue 模板是写在html中,而不是通过编译生成.所以应该确保每个标签都是有起始和结束.
+
+```html
+<!--正确-->
+<el-switch></el-switch>
+
+<!--错误-->
+<el-switch/>
+<!--错误-->
+<el-switch>
+```
+
+如果不按照正确的语法,会导致页面无法正常显示,或显示错误.
+
+### 后端数据
+
+页面中 `__RENDER_DATA` 变量是用来存放后端渲染数据的
+
+> 前端开发人员可以跳过后端数据这一部分内容,让后端同事看这一部分内容
+
+**某后端模板**
+```html
+<script>
+    window.__RENDER_DATA = [[raw(xjson(.))]]
+</script>
+```
+
+**某后端模板引擎渲染语法**
+```js
+var data = {
+    list: [{name:"2type"}]
+}
+var t = view.getTemplate("list.html")
+t.render(data)
+```
+
+**渲染结果**
+```html
+<script>
+    window.__RENDER_DATA = {list: [{name:"2type"}]}
+</script>
+```
+
+
+### ... 扩展语法
+
+> vm 指的是 `new Vue({...})` 创建的实例
+
+将 __RENDER_DATA 的数据导入 vm.data
+```js
+{
+    ...__RENDER_DATA,
+}
+```
+
+将 TA.m 的数据导入 vm.methods
+
+```js
+methods: {
+    ...TA.m,
+},
+```
+
+> 如果你误删了 `...__RENDER_DATA,` 或者 `...TA.m,` 可能会导致某些功能失效 
+
 ### 本地预览
 
 1. [main.go](./main.go) go 语言示例环境,可以安装 https://golang.org/ 后在当前目录运行 go run main.go
@@ -86,6 +171,7 @@ const header = [
 ]
 ```
 导航部分在 [./project.js](./project.js) 中通过 TA.nav 控制
+
 ```js
 TA.nav = {
     // 头部
@@ -122,6 +208,17 @@ TA.nav = {
     ]
 }
 ```
+底部部分在 [./project.js](./project.js) 中通过 TA.footer 控制
+
+```js
+TA.footer = {
+    link: {
+        text: "@2type/admin",
+        href: "https://github.com/2type/admin",
+    }
+}
+```
+
 ### ta-box
 
 > 盒子
@@ -354,89 +451,6 @@ mounted() {
     }, 1000)
 }
 ```
-
-## 必须阅读
-
-### esm
-
-项目中可直接使用 `import` 导入js模块,但要注意一定要在 `<script type="module" >` 标签的起始处, 必须有 `type="module"`.
-
-在线 esm 模块: https://www.skypack.dev/
-
-国内加速镜像: https://esm.nimo.run/
-
-
-### 最好有一点vue基础
-
-1. 文档 https://cn.vuejs.org/v2/guide/
-2. 视频 https://learning.dcloud.io/
-
-### 标签闭合
-
-因为 Vue 模板是写在html中,而不是通过编译生成.所以应该确保每个标签都是有起始和结束.
-
-```html
-<!--正确-->
-<el-switch></el-switch>
-
-<!--错误-->
-<el-switch/>
-<!--错误-->
-<el-switch>
-```
-
-如果不按照正确的语法,会导致页面无法正常显示,或显示错误.
-
-### 后端数据
-
-页面中 `__RENDER_DATA` 变量是用来存放后端渲染数据的
-
-> 前端开发人员可以跳过后端数据这一部分内容,让后端同事看这一部分内容
-
-**某后端模板**
-```html
-<script>
-    window.__RENDER_DATA = [[raw(xjson(.))]]
-</script>
-```
-
-**某后端模板引擎渲染语法**
-```js
-var data = {
-    list: [{name:"2type"}]
-}
-var t = view.getTemplate("list.html")
-t.render(data)
-```
-
-**渲染结果**
-```html
-<script>
-    window.__RENDER_DATA = {list: [{name:"2type"}]}
-</script>
-```
-
-
-### ... 扩展语法
-
-> vm 指的是 `new Vue({...})` 创建的实例
-
-将 __RENDER_DATA 的数据导入 vm.data
-```js
-{
-    ...__RENDER_DATA,
-}
-```
-
-将 TA.m 的数据导入 vm.methods
-
-```js
-methods: {
-    ...TA.m,
-},
-```
-
-> 如果你误删了 `...__RENDER_DATA,` 或者 `...TA.m,` 可能会导致某些功能失效 
 
 
 ## 第三方库
