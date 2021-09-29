@@ -237,3 +237,5 @@ Vue.component(Box.name, Box)
 
 import Editor from "./module/editor/index.js"
 Vue.component(Editor.name, Editor)
+
+document.getElementById("ta-app").style.display="block"

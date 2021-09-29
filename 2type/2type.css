@@ -5,6 +5,9 @@ body {
 #ta-app,html,body {
     height: 100%;
 }
+#ta-app {
+    display: none;
+}
 #ta-app>.el-container {
     min-height: 100vh;
 }
