@@ -71,6 +71,13 @@ func main () {
 		Render: JetRender{},
 	})
 	ms.URL(xhttp.Mock{
+		Route: xhttp.Route{xhttp.GET, "/"},
+		HandleFunc: func(c *xhttp.Context, data interface{}) error {
+			http.Redirect(c.Writer, c.Request, "/admin/login", 302)
+			return nil
+		},
+	})
+	ms.URL(xhttp.Mock{
 		Route:               xhttp.Route{xhttp.POST, "/admin/upload/photo"},
 		Reply:               xhttp.MockReply{
 			"pass": UploadRes{
