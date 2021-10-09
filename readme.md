@@ -184,7 +184,7 @@ TA.nav = {
     items: [
         {
             url: TA.m.url_home(),
-            // 可在 https://2type.github.io/icon/ 中寻找 icon
+            // 可在 https://2type.cn/icon/ 中寻找 icon
             icon: 'display',
             title: "首页",
         },
