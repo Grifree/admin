@@ -119,10 +119,10 @@ TA.m.url_demo_create = function () {
 TA.nav = {
     // 头部
     top: {
-        logo: 'https://2type.cn/icon/logo.svg',
+        logo: 'https://icon.2type.cn/logo.svg',
     },
     user: {
-        avatar: "https://2type.cn/icon/user-male.svg",
+        avatar: "https://icon.2type.cn/user-male.svg",
         name: "admin",
     },
     // 退出登录
@@ -131,7 +131,7 @@ TA.nav = {
     items: [
         {
             url: TA.m.url_home(),
-            // 可在 https://2type.cn/icon/ 中寻找 icon
+            // 可在 https://icon.2type.cn/ 中寻找 icon
             icon: 'display',
             title: "首页",
         },
