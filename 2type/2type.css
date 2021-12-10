@@ -97,3 +97,12 @@ body {
     vertical-align: top;
     line-height: 2;
 }
+
+/* https://github.com/wangeditor-team/wangEditor/issues/3504 */
+.w-e-toolbar {
+    z-index: 2 !important;
+}
+.w-e-text-container
+{
+    z-index: 1 !important;
+}
