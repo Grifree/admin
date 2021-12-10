@@ -24,6 +24,9 @@
             <el-form-item label="多个文件" >
                 <ta-upload-list v-model="form.fileList" action="/admin/upload/file" ></ta-upload-list>
             </el-form-item>
+            <el-form-item label="地区限制" >
+                <ta-lbs-limit v-model="form.area"></ta-lbs-limit>
+            </el-form-item>
             <el-form-item label="编辑器" >
                 <ta-editor v-model="form.content" photo="/admin/upload/photo" > ></ta-editor>
             </el-form-item>
@@ -43,6 +46,7 @@
             formKind: "create",
             form: {
                 title: '',
+
                 type: '',
                 file: {
                     filename: "",
@@ -64,6 +68,7 @@
             form: {
                 title: 'abc',
                 type: 1,
+                area: { "type": "selected", "inverse": [], "selected": [ "110000", "120000" ] },
                 file: {
                     filename: "abc.csv",
                     id: "some_uuid",

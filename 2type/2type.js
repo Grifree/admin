@@ -238,4 +238,7 @@ Vue.component(Box.name, Box)
 import Editor from "./module/editor/index.js"
 Vue.component(Editor.name, Editor)
 
+import LBSLIMIT from "./module/lbs-limit/index.js"
+Vue.component(LBSLIMIT.name, LBSLIMIT)
+
 document.getElementById("ta-app").style.display="block"
