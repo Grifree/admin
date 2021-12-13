@@ -356,6 +356,105 @@ TA.hook.editor.insertImage = function (res, insert) {
 }
 ```
 
+### 地区限制
+
+地区限制通过
+
+1. ♾️不限地区
+2. ✅包含区域
+3. 🚫排除区域
+4. 🔗组合模式
+
+四种模式加上地区选择器,可以简单灵活的配置地区限制,如果后端使用mongo则可以快速完成地区筛选.
+
+```html
+<ta-lbs-limit v-model="form.area"></ta-lbs-limit>
+```
+
+不同选择 `form.area` 对应的值
+
+```html
+<!-- 可以通过 :debug="true" 查看所有省市区结构 --> <ta-lbs-limit :debug="true" v-model="form.area"></ta-lbs-limit>
+```
+
+> 它们的ID存储的是 adcode [行政区划](https://lbs.qq.com/service/webService/webServiceGuide/webServiceDistrict)
+
+```js
+// ♾️不限地区
+{"type":"unlimited","inverse":[],"selected":[]}
+```
+```js
+// ✅包含区域
+{"type":"selected","inverse":[],"selected":["110000","110101"]}
+```
+
+```js
+🚫排除区域
+{"type":"inverse","inverse":["120102","120103"],"selected":[]}
+```
+```js
+// 🔗组合模式
+{"type":"selectedAndInverse","inverse":["110101"],"selected":["110000","120000"]}
+```
+
+对应的 mongoDB 代码
+
+
+集合的数据结构
+```json
+{
+	"advertisingID": 1,
+	"areaLimit": {
+		"type": "unlimited",
+		"inverse": [],
+		"selected": []
+	}
+}
+```    
+
+
+假设用户的位置是 `310113`
+
+> 查询1,2这两个广告 `advertisingID:{$in: [1,2]}`
+> 并且 `$and`
+> 它们的限制规则必须**至少**满足以下4项的其中一项 `$or`
+> 1. 包含模式的包含区域中**存在** `310112`
+> 2. 排除模式的排除区域中**不存在** `310112`
+> 3. 组合模式的包含区域中**存在** `310112` 并且 排除区域中**不存在** `310112`
+> 4. 不限地区  
+
+```mongo
+db.advertisingRule.find({
+    $and: [{
+        "advertisingID": {
+            $in: [1,2,]
+        }
+    },
+    {
+        $or: [
+            {
+                "areaLimit.type": "selected",
+                "areaLimit.selected": {$in: ["310112"]},
+            },
+            {
+                "areaLimit.type": "inverse",
+                "areaLimit.inverse": {$nin: ["310112"]}
+            },
+            {
+                "areaLimit.type": "selectedAndInverse",
+                "areaLimit.selected": {$in: ["310112"]},
+                "areaLimit.inverse": {$nin: ["310112"]}
+            },
+            {
+                "areaLimit.type": "unlimited",
+            },
+        ]
+    }]
+})
+```
+
+> 你可能还需要使用 [https://github.com/goclub/lbs](goclub/lbs]) 来查询一些地区的上下级
+
 ### element-ui
 
 2type/admin 中已经集成了 element-ui 可直接使用无需引用

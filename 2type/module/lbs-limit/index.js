@@ -1,48 +1,35 @@
 import template from "./tpl.js"
-import area from "./area.js"
+import tree from "./tree.js"
 import copy from "https://cdn.skypack.dev/copy-to-clipboard@3.3.1"
 export default {
     name: "ta-lbs-limit",
     template: template,
 
     data: function() {
-        let data = []
-        area[0].forEach(function (item) {
-            let city = []
-            if (item.cidx && item.cidx.length === 2) {
-                let cityArea = area[1].slice(item.cidx[0], item.cidx[1]+1)
-                cityArea.forEach(function (item) {
-                    let district = []
-                    if (item.cidx && item.cidx.length === 2) {
-                        let districtArea = area[2].slice(item.cidx[0], item.cidx[1]+1)
-                        districtArea.forEach(function (item) {
-                            district.push({
-                                label: item.fullname,
-                                value: item.id,
-                            })
-                        })
-                    }
-                    city.push({
-                        label: item.fullname,
-                        value: item.id,
-                        children: district,
-                    })
-                })
-            }
-            data.push({
-                label: item.fullname,
-                value: item.id,
-                children: city,
-            })
-        })
         return {
             selected: [],
             inverse: [],
             type: 'unlimited',
-            data:  data
         }
     },
     props:{
+        debug: Boolean,
+        debugProps: {
+            type: Object,
+            default: function () {
+                return {
+                    label: function (node) {
+                        return `${node.label}(${node.value})`
+                    }
+                }
+            }
+        },
+        options: {
+            type: Array,
+            default: function () {
+                return tree
+            }
+        },
         value: {
             type: Object,
             default: function () {
@@ -96,14 +83,18 @@ export default {
         },
         setInverse: function () {
             let newValue = prompt("粘贴内容")
-            this.changeInverse(JSON.parse(newValue))
+            if (newValue) {
+                this.changeInverse(JSON.parse(newValue))
+            }
         },
         copySelected: function () {
             copy(JSON.stringify(this.value.selected))
         },
         setSelected: function () {
             let newValue = prompt("粘贴内容")
-            this.changeSelected(JSON.parse(newValue))
+            if (newValue) {
+                this.changeSelected(JSON.parse(newValue))
+            }
         }
     },
 }
