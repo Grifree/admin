@@ -356,9 +356,16 @@ TA.hook.editor.insertImage = function (res, insert) {
 }
 ```
 
-### 地区限制
 
-地区限制通过
+### 地区
+
+**地区选择**
+
+`<ta-region v-model="form.region"></ta-region>`
+
+
+
+**地区限制**通过
 
 1. ♾️不限地区
 2. ✅包含区域

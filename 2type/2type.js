@@ -241,4 +241,7 @@ Vue.component(Editor.name, Editor)
 import LBSLIMIT from "./module/lbs-limit/index.js"
 Vue.component(LBSLIMIT.name, LBSLIMIT)
 
+import RESGION from "./module/region/index.js"
+Vue.component(RESGION.name, RESGION)
+
 document.getElementById("ta-app").style.display="block"
