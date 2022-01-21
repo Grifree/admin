@@ -50,7 +50,7 @@ TA.hook.req = {
                     })
                     return
                 }
-                urlfn.apply(TA.m, res.data.jumpArgs)
+                res.data.jump = urlfn.apply(TA.m, res.data.jumpArgs)
             }
             let page = res.data.jumpPageName || res.data.jump
             ELEMENT.Message({
