@@ -40,7 +40,7 @@ TA.hook.req = {
         res.data = res.data || {}
         if (res.data.jump) {
             if (/^url_/.test(res.data.jump) && /\(\)$/.test(res.data.jump)) {
-                const urlKey = res.data.jump.replace("()")
+                const urlKey = res.data.jump.replace("()", "")
                 console.log("跳转至 TA.m." + urlKey)
                 const urlfn = TA.m[urlKey]
                 if (typeof urlfn == "undefined") {
