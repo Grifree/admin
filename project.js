@@ -40,7 +40,7 @@ TA.hook.req = {
         res.data = res.data || {}
         if (res.data.jump) {
             if (/^url_/.test(res.data.jump) && /\(\)$/.test(res.data.jump)) {
-                const urlKey = res.data.jump.replace("()")
+                const urlKey = res.data.jump.replace("()", "")
                 console.log("跳转至 TA.m." + urlKey)
                 const urlfn = TA.m[urlKey]
                 if (typeof urlfn == "undefined") {
@@ -50,7 +50,7 @@ TA.hook.req = {
                     })
                     return
                 }
-                urlfn.apply(TA.m, res.data.jumpArgs)
+                res.data.jump = urlfn.apply(TA.m, res.data.jumpArgs)
             }
             let page = res.data.jumpPageName || res.data.jump
             ELEMENT.Message({
