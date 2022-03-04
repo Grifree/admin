@@ -12,6 +12,13 @@ export default {
         }
     },
     methods: {
+        icon(path) {
+            if (!/^(http)/.test(path)) {
+                return 'https://icon.2type.cn/'+ path +'.svg'
+            } else {
+                return path
+            }
+        },
         handleSelect(url) {
             if (url) {
                 TA.m._jump(url)

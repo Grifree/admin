@@ -131,7 +131,7 @@ TA.nav = {
     items: [
         {
             url: TA.m.url_home(),
-            // 可在 https://icon.2type.cn/ 中寻找 icon
+            // 可在 https://icon.2type.cn/ 中寻找 icon 或者直接填写 https://icon.2type.cn/logo.svg
             icon: 'display',
             title: "首页",
         },
