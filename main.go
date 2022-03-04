@@ -160,6 +160,10 @@ func main () {
 	ms.URL(xhttp.Mock{
 		Route:               xhttp.Route{xhttp.POST, "/sms/send"},
 	})
+	ms.URL(xhttp.Mock{
+        Route:               xhttp.Route{xhttp.GET, "/admin/mobile"},
+        Render: "mobile.html",
+    })
 	ms.PrefixHandle("/public", NoCacheFileServer{"./"})
 	ms.Listen(4122)
 }

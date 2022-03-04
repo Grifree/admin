@@ -1,0 +1,158 @@
+[[extends "./layout/mobile.html"]]
+[[block main()]]
+<van-search v-model="search" placeholder="请输入搜索关键词"></van-search>
+<div style="padding:10px;padding-bottom: 50px;">
+    <van-swipe :autoplay="3000" indicator-color="white">
+        <van-swipe-item v-for="item in banner"  v-bind:key="item.photo">
+            <a :href="item.link">
+                <img style="height:200px" :src="item.photo" />
+            </a>
+        </van-swipe-item>
+    </van-swipe>
+    <van-divider>推荐</van-divider>
+    <van-pull-refresh
+            v-model="listLoading"
+            @refresh="onRefreshList"
+            success-text="刷新成功"
+    >
+        <van-card
+                v-for="(item, index) in list"
+                v-bind:key="index"
+                tag=""
+                :price="item.price"
+                :desc="item.desc"
+                :title="item.title"
+                :thumb="item.thumb"
+                :origin-price="item.originPrice"
+        >
+            <template #footer>
+                销量:{{item.sales}}
+            </template>
+        </van-card>
+    </van-pull-refresh>
+</div>
+<van-tabbar>
+    <van-tabbar-item>
+        <template #icon="props">
+            <img src="https://icon.2type.cn/cartoon/wine.svg" />
+        </template>
+        美食
+    </van-tabbar-item>
+    <van-tabbar-item>
+        <template #icon="props">
+            <img src="https://icon.2type.cn/school/microphone.svg" />
+        </template>
+        娱乐
+    </van-tabbar-item>
+    <van-tabbar-item>
+        <template #icon="props">
+            <img src="https://icon.2type.cn/cartoon/store.svg" />
+        </template>
+        住宿
+    </van-tabbar-item>
+    <van-tabbar-item>
+        <template #icon="props">
+            <img src="https://icon.2type.cn/cartoon/ticket.svg" />
+        </template>
+        门票
+    </van-tabbar-item>
+</van-tabbar>
+
+[[end]]
+[[block script()]]
+<script>
+    window.__RENDER_DATA = {
+        banner: [
+            {
+                photo: "https://cdn1.lianlianlvyou.com/lianlian/common/2ca0c87d0e534ba3b5e27b13ac658d8d.png",
+                link: "",
+            },
+            {
+                photo: "https://cdn2.lianlianlvyou.com/lianlian/common/2497a98be60e441db275e4f2d88f60df.png",
+                link: "",
+            }
+        ],
+        list: [
+            {
+                id: 1,
+                price: "99",
+                desc: "#火爆加推#【西南地区人气温泉水汇·第一江南·无需预约】仅99元/139元/169元享门市价168元/198元/326元【第一江南温泉水汇】成人/1大1小亲子票！足足四餐（刺身、牛排、海鲜自助...几百道菜品无限量供应）+电玩+桑拿+温泉+1800m²儿童乐园+3D电影院…60000m²全新场馆娱乐项目多到超乎你想象，家庭聚会团建都适合！",
+                title: "第一江南·无需预约·60000㎡超大水汇",
+                thumb: "https://cdn.lianlianlvyou.com/lianlian/design/845f5ab7aa69438ebc86b2f2f62a7ec8.gif",
+                originPrice: "168",
+                sales: 232,
+            },
+            {
+                id: 2,
+                price: "138",
+                desc: "【大龍火锅·无需预约｜春熙路店/锦里店/九眼桥店/玉林店等五店适用】春节不打烊138/228元享门市价344元/515元的火锅【大龍火锅4人餐/8人餐】，锅底八选一，巴掌嫩牛肉+ 精品千层肚+生扣鸭肠+ 鲜郡肝+香菜圆子+三线五花+广味香肠+手工虾滑+巴沙鱼片+鹌鹑蛋+鸭血+...锅底油碟全包～环境巴适，春节不打烊，年底聚会聚餐有面子！",
+                title: "大龍火锅·无需预约｜春节可用·五店适用",
+                thumb: "https://cdn2.lianlianlvyou.com/lianlian/design/649de79251f840fd809a4faad8f1a85c.gif",
+                originPrice: "344",
+                sales: 141,
+            },
+            {
+                id: 3,
+                price:"29.9",
+                desc:"颠覆大众苹果，舒服奶金色の奶油苹果等你尝鲜！松脆可口，清甜化渣，果香扑鼻！当奶油香气遇上苹果，解锁你不一样的味蕾体验！",
+                title:"劲爆特惠·入口即化爽口无渣·烟台奶油富士",
+                thumb:"https://cdn1.lianlianlvyou.com/lianlian/design/f119ff170b1b4f49b6ecede81e469c63.gif",
+                originPrice:"59",
+                sales: 1834,
+            },
+            {
+                id: 4,
+                price:"99",
+                desc:"【14店适用·全国连锁品牌·:·每天可约200+桌·可预约当天】春季福利来袭！现99元享门市价254元【守柴炉烤鸭】3-4人套餐！包含烤鸭1份（半只，配面皮、葱丝、黄瓜丝、甜面酱）+酸萝卜鸭架汤+香辣鸭架+虫草花拌鸭丝+午餐肉+时蔬+粉丝+豆皮+野菜煎饼/养生黑木耳（二选一）+纸巾！百年烤鸭，为您呈现地道京味！果木炭烤，皮脂酥脆，香气四溢，美味又养生~",
+                title:"守柴炉烤鸭·14店适用·全国连锁品牌",
+                thumb:"http://cdn.lianlianlvyou.com/lianlian/design/1d3c5a00e45b47f79c016b36fe30cb27.gif",
+                originPrice:"159",
+                sales: 134,
+            },
+            {
+                id: 5,
+                price:"88",
+                desc:"【音乐派量贩KTV•10店适用•全时段适用•周末可用】仅88元享门市价198元全时段任选4小时+6瓶雪花纯生/软饮2选1+爆米花大桶！298元享门市价498元欢唱3.5小时+大龙燚联名火锅套餐（12荤7素含锅底油碟：千层肚、鸭肠、肥牛、郡花、筷子牛肉～~~）KTV+火锅，打卡有我更欢乐~",
+                title:"音乐派量贩KTV•10店适用•周末可用",
+                thumb:"https://cdn.lianlianlvyou.com/lianlian/design/c68a460c00b14e4e978971be2d56eea3.gif",
+                originPrice:"199",
+                sales: 2313,
+            }
+        ]
+    }
+</script>
+<script type="module" >
+
+    const vm = new Vue({
+        el: "#ta-app",
+        data: function () {
+            const out = {
+                ...__RENDER_DATA,
+                listLoading: false,
+                search: "",
+            }
+            return out
+        },
+        methods: {
+            ...TA.m,
+            onRefreshList() {
+                console.log("onRefreshList")
+                const vm = this
+                // setTimeout 模拟ajax耗时
+                setTimeout(function () {
+                    vm.listLoading = false
+                    // 复制一份list模拟加载数据
+                    vm.list = vm.list.map(function (item) {
+                        item.title= Math.random() + item.title
+                        return item
+                    }).concat(vm.list)
+                }, 1000)
+
+            },
+        },
+    })
+</script>
+<style>
+
+</style>
+[[end]]
