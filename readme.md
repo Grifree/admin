@@ -68,7 +68,7 @@
 
 在线 esm 模块: https://www.skypack.dev/
 
-国内加速镜像: https://esm.nimo.run/
+国内加速镜像: https://esm.2type.cn/
 
 
 ### 最好有一点vue基础
@@ -479,8 +479,8 @@ db.advertisingRule.find({
 
 ```js
 // 使用前需先引用 (记得在 <script type="module" > 开头引用)
-import g2 from 'https://esm.nimo.run/@antv/g2@v4.1.27/dist/g2.min.js'
-import echarts from "https://esm.nimo.run/echarts@5.2.1/dist/echarts.min.js"
+import g2 from 'https://esm.2type.cn/@antv/g2@v4.1.27/dist/g2.min.js'
+import echarts from "https://esm.2type.cn/echarts@5.2.1/dist/echarts.min.js"
 ```
 
 ```js
@@ -488,7 +488,7 @@ mounted() {
     const vm = this
     setTimeout(function () {
         // 使用前请确保 <script type="module" > 起始处引用了
-        // import echarts from "https://esm.nimo.run/echarts@5.2.1/dist/echarts.min.js"
+        // import echarts from "https://esm.2type.cn/echarts@5.2.1/dist/echarts.min.js"
         var chart = echarts.init(vm.$refs.saleChartNode);
         // 配置参考 https://echarts.apache.org/examples/zh/editor.html?c=line-stack
         const option = {
@@ -524,7 +524,7 @@ mounted() {
     }, 1000)
     // 一定要延迟渲染
     setTimeout(function () {
-        // import g2 from 'https://esm.nimo.run/@antv/g2@v4.1.27/dist/g2.min.js'
+        // import g2 from 'https://esm.2type.cn/@antv/g2@v4.1.27/dist/g2.min.js'
         const data = [{"Data": "2017-01", "sales": 1145}, {"Data": "2017-02", "sales": 1244}, {"Data": "2018-03", "sales": 1745 }, {"Data": "2018-04", "sales": 1680}, {"Data": "2018-05", "sales": 1802}, {"Data": "2018-06", "sales": 1697 }, {"Data": "2018-07", "sales": 1583}, {"Data": "2018-08", "sales": 1556}, {"Data": "2018-09", "sales": 1824 }, {"Data": "2018-10", "sales": 2398}, {"Data": "2018-11", "sales": 2278}, {"Data": "2018-12", "sales": 2495 }]
         const chart = new Chart({
             container: vm.$refs.g2ChartNode,

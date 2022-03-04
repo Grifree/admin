@@ -1,5 +1,5 @@
 import template from "./tpl.js"
-import wangEditor from "https://esm.nimo.run/wangeditor@4.7.8/dist/wangEditor.min.js"
+import wangEditor from "https://esm.2type.cn/wangeditor@4.7.8/dist/wangEditor.min.js"
 export default {
     name: "ta-editor",
     template: template,

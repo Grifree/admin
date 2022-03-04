@@ -5,31 +5,25 @@
     <van-swipe :autoplay="3000" indicator-color="white">
         <van-swipe-item v-for="item in banner"  v-bind:key="item.photo">
             <a :href="item.link">
-                <img style="height:200px" :src="item.photo" />
+                <img style="display:block;height:200px;margin:0 auto;" :src="item.photo" />
             </a>
         </van-swipe-item>
     </van-swipe>
     <van-divider>推荐</van-divider>
-    <van-pull-refresh
-            v-model="listLoading"
-            @refresh="onRefreshList"
-            success-text="刷新成功"
+    <van-card
+            v-for="(item, index) in list"
+            v-bind:key="index"
+            tag=""
+            :price="item.price"
+            :desc="item.desc"
+            :title="item.title"
+            :thumb="item.thumb"
+            :origin-price="item.originPrice"
     >
-        <van-card
-                v-for="(item, index) in list"
-                v-bind:key="index"
-                tag=""
-                :price="item.price"
-                :desc="item.desc"
-                :title="item.title"
-                :thumb="item.thumb"
-                :origin-price="item.originPrice"
-        >
-            <template #footer>
-                销量:{{item.sales}}
-            </template>
-        </van-card>
-    </van-pull-refresh>
+        <template #footer>
+            销量:{{item.sales}}
+        </template>
+    </van-card>
 </div>
 <van-tabbar>
     <van-tabbar-item>
@@ -128,27 +122,12 @@
         data: function () {
             const out = {
                 ...__RENDER_DATA,
-                listLoading: false,
                 search: "",
             }
             return out
         },
         methods: {
             ...TA.m,
-            onRefreshList() {
-                console.log("onRefreshList")
-                const vm = this
-                // setTimeout 模拟ajax耗时
-                setTimeout(function () {
-                    vm.listLoading = false
-                    // 复制一份list模拟加载数据
-                    vm.list = vm.list.map(function (item) {
-                        item.title= Math.random() + item.title
-                        return item
-                    }).concat(vm.list)
-                }, 1000)
-
-            },
         },
     })
 </script>

@@ -1,6 +1,6 @@
-import qs from "https://esm.nimo.run/query-string@7.0.0"
-import axios from "https://esm.nimo.run/axios@0.21.1"
-import dayjs from "https://esm.nimo.run/dayjs@1.8.21"
+import qs from "https://esm.2type.cn/query-string@7.0.0"
+import axios from "https://esm.2type.cn/axios@0.21.1"
+import dayjs from "https://esm.2type.cn/dayjs@1.8.21"
 window.TA = {
     m: {},
     default: {
