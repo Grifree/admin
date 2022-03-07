@@ -99,15 +99,23 @@ TA.m._readSearch = function() {
     @param {function} passCallback
     @param {function} failCallback
 */
-TA.m._req = function (config, passCallback, failCallback) {
+TA.m._req = function (config, passCallback, failCallback, always) {
     let settings = config
     settings.responseType = settings.responseType || "json"
-    const loading = ELEMENT.Loading.service({
-        lock: true,
-        text: settings.$LoadingText || 'Loading',
-        spinner: 'el-icon-loading',
-        background: 'rgba(0, 0, 0, 0.7)'
-    });
+    let loading = {
+        close(){}
+    }
+    if (config.$loading !== false){
+        loading = ELEMENT.Loading.service({
+            lock: true,
+            text: settings.$LoadingText || 'Loading',
+            spinner: 'el-icon-loading',
+            background: 'rgba(0, 0, 0, 0.7)'
+        });
+    }
+    always = always || function () {
+        
+    }
     axios(settings).then(function (res) {
         loading.close()
         if (!failCallback) {
@@ -117,8 +125,10 @@ TA.m._req = function (config, passCallback, failCallback) {
             passCallback = TA.hook.req.passCallback
         }
         TA.hook._req.handleError(res, passCallback, failCallback)
+        always()
     }).catch(function (err) {
         loading.close()
+        always()
         console.error(err)
         alert(err)
     })
@@ -229,8 +239,8 @@ Vue.component(Upload.name, Upload)
 import UploadList from "./module/uploadList/index.js"
 Vue.component(UploadList.name, UploadList)
 
-import Page from "./module/page/index.js"
-Vue.component(Page.name, Page)
+import Pc from "./module/pc/index.js"
+Vue.component(Pc.name, Pc)
 
 import Box from "./module/box/index.js"
 Vue.component(Box.name, Box)

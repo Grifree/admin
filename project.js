@@ -15,6 +15,7 @@ TA.hook._req.handleError= function (res, passCallback, failCallback) {
         failCallback(res)
         return true
     } else {
+        res.data.error = undefined
         passCallback(res)
         return false
     }
@@ -113,7 +114,9 @@ TA.m.url_demo_update = function (id) {
 TA.m.url_demo_create = function () {
     return "/admin/demo_create"
 }
-
+TA.m.url_mobile_home = function () {
+    return "/mobile/home"
+}
 
 
 TA.nav = {

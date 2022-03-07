@@ -1,6 +1,6 @@
-[[extends "./layout/page.html"]]
+[[extends "./layout/pc.html"]]
 [[block main()]]
-<ta-page :header="header">
+<ta-pc :header="header">
     <ta-box :title=" 'XX' + _formKindLabel()">
         <el-form label-width="120px" >
             <el-form-item label="标题" >
@@ -38,7 +38,7 @@
             </el-form-item>
         </el-form>
     </ta-box>
-</ta-page>
+</ta-pc>
 [[end]]
 [[block script()]]
 <script>

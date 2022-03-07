@@ -1,6 +1,6 @@
 import template from "./tpl.js"
 export default {
-    name: "ta-page",
+    name: "ta-pc",
     template: template,
     props: ['header', 'logo'],
     data:function () {

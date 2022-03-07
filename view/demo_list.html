@@ -1,6 +1,6 @@
-[[extends "./layout/page.html"]]
+[[extends "./layout/pc.html"]]
 [[block main()]]
-<ta-page :header="header">
+<ta-pc :header="header">
     <ta-box title="商品列表">
         <template slot="tools">
             <el-button @click="_jump(url_demo_create())" type="primary" >创建</el-button>
@@ -77,7 +77,7 @@
         >
         </el-pagination>
     </ta-box>
-</ta-page>
+</ta-pc>
 [[end]]
 [[block script()]]
 <script>

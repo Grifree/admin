@@ -469,6 +469,13 @@ db.advertisingRule.find({
 1. [element table](https://element.eleme.io/2.15/#/zh-CN/component/table)
 1. [element form](https://element.eleme.io/2.15/#/zh-CN/component/form)
 
+# vant
+
+2type/admin 的移动端模式使用了
+
+1. [vant v2](https://youzan.github.io/vant/v2/#/zh-CN/)
+2. [vue router v3](https://v3.router.vuejs.org/zh/guide/#javascript) *非必须了解*
+3. [vuex v3](https://v3.vuex.vuejs.org/zh) *非必须了解*
 
 ### 图表
 
@@ -761,9 +768,32 @@ TA.m._readSearch = function() {
 }
 ```
 
-### _req(config, passCallback, failCallback)
+### _req(config, passCallback, failCallback, alwaysCallback)
 
 发起 HTTP 请求
+
+使用示例
+```js
+TA.m._req({
+    $loading: false, // 可以通过 $loading: false  取消 loading 遮罩层
+    method:"get",
+    url: vm.url_mobile_home(),
+}, function passCallback (res) {
+    console.log(res)
+})
+ 
+TA.m._req({
+    $loading: false, // 可以通过 $loading: false  取消 loading 遮罩层
+    method:"get",
+    url: vm.url_mobile_home(),
+}, function passCallback (res) {
+    console.log(res)
+}, function failCallback() {
+
+}, function alwaysCallback() {
+    
+})
+```
 
 config 参数是 [axios](https://axios-http.com/zh/docs/api_intro) 的参数. 
 
