@@ -50,6 +50,7 @@ TA.nav = {
     // 头部
     top: {
         logo: 'https://icon.2type.cn/logo.svg',
+        title: "内部管理后台",
     },
     user: {
         avatar: "https://icon.2type.cn/user-male.svg",

@@ -10,6 +10,7 @@ export default
                 <el-menu-item style="padding:1em;" >
                     <div style="text-align: center;margin-top: -1em;">
                         <img class="" :src="nav.top.logo" style="margin-bottom: -.3em;height:2em;" >
+                        <span style="display:inline-block;font-size:1.4em;">{{nav.top.title}}</span>
                     </div>
                 </el-menu-item>
                  <template v-for="(item, index) in nav.items"  >
