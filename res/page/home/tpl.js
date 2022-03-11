@@ -13,6 +13,8 @@ export default `
     </van-skeleton>
         <van-divider>推荐</van-divider>
     <van-skeleton avatar avatar-size="4em" :row="10" :loading="loading">
+        <!-- 底部自动刷新 https://youzan.github.io/vant/v2/#/zh-CN/list-->
+        <!-- 上拉刷新用 https://youzan.github.io/vant/v2/#/zh-CN/pull-refresh-->
         <van-card
                 v-for="(item, index) in list"
                 v-bind:key="index"

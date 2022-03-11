@@ -45,6 +45,7 @@
 ### 配置文件
 
 1. [project.js](./project.js) 项目配置
+1. [project.auth.js](./project.auth.js) 项目配置 `授权(登录)后才能访问的项目配置`
 1. [project.css](./project.css) 项目样式 
 
 ### 静态资源
@@ -1035,3 +1036,9 @@ _find(option.user, "userID", 2).userName // 李四
     </template>
 </el-table-column>
 ```
+
+## mobile
+
+你还可以使用 2type/admin 快速开发移动端,这需要你有一点的前端基础.
+
+可参考 [view/mobile.html](./view/mobile.html)
