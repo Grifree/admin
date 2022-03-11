@@ -110,3 +110,11 @@ body {
 .mobile-app {
     height: auto;
 }
+.ta-pc-link {
+    text-decoration: none;
+    color:#303133;
+    display: block;
+}
+.is-active>div>.ta-pc-link{
+    color:#409EFF;
+}

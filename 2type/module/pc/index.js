@@ -8,10 +8,13 @@ export default {
             nav: TA.nav,
             footer: TA.footer,
             isCollapse: false,
-            navActive: location.pathname + location.search,
+            navActive: location.pathname
         }
     },
     methods: {
+        navIndex(url) {
+            return url.replace(/\?.*$/, "")
+        },
         icon(path) {
             if (!/^(http)/.test(path)) {
                 return 'https://icon.2type.cn/'+ path +'.svg'

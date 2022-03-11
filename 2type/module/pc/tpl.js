@@ -6,7 +6,6 @@ export default
               style="height: 100%;"
               class=""
               :default-active="navActive"
-              @select="handleSelect"
               >
                 <el-menu-item style="padding:1em;" >
                     <div style="text-align: center;margin-top: -1em;">
@@ -14,21 +13,27 @@ export default
                     </div>
                 </el-menu-item>
                  <template v-for="(item, index) in nav.items"  >
-                    <el-menu-item v-if="isEmptyArray(item.items)" :index="item.url" :key="item.title" >
+                    <el-menu-item v-if="isEmptyArray(item.items)" :index="navIndex(item.url)" :key="item.title" >
                         <div slot="title">
+                            <a :href="item.url" class="ta-pc-link">
                             <img class="ta-icon" :src="icon(item.icon)" />
                             {{item.title}}
+                            </a>
                         </div>
                     </el-menu-item>         
                     <el-submenu v-else :index="'i'+index" :key="item.title"  >
                         <div slot="title">
+                            <a :href="item.url" class="ta-pc-link">
                             <img class="ta-icon" :src="icon(item.icon)" />
                             {{item.title}}
+                            </a>
                         </div>
-                        <el-menu-item v-for="sub in item.items" :index="sub.url" :key="sub.title"  >
+                        <el-menu-item v-for="sub in item.items" :index="navIndex(sub.url)" :key="sub.title"  >
                             <div slot="title">
-                                <i :class="'fa fa-' + sub.fontawesome" aria-hidden="true"></i>
-                                {{sub.title}}
+                                <a :href="sub.url" class="ta-pc-link">
+                                    <i :class="'fa fa-' + sub.fontawesome" aria-hidden="true"></i>
+                                    {{sub.title}}
+                                </a>
                             </div>
                         </el-menu-item>
                     </el-submenu>       
