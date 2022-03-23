@@ -60,7 +60,7 @@ TA.m._open = function (url) {
 * */
 TA.m._isDemo = function() {
     return ['localhost', 'admin.2type.cn'].some(function (item){
-        return item == location.hostname
+        return item == location.host
     })
 }
 /*

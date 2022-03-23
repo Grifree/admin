@@ -17,11 +17,11 @@ export default
             </template>
             娱乐
         </van-tabbar-item>
-        <van-tabbar-item replace to="/hotel">
+        <van-tabbar-item replace to="/order">
             <template #icon="props">
-                <img src="https://icon.2type.cn/cartoon/store.svg" />
+                <img src="https://icon.2type.cn/school/task.svg" />
             </template>
-            住宿
+            订单
         </van-tabbar-item>
         <van-tabbar-item replace to="/user">
             <template #icon="props">

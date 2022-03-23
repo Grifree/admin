@@ -26,6 +26,10 @@ export default {
     },
     methods: {
         // 不要漏掉 ...TA.m
-        ...TA.m
+        ...TA.m,
+        clickSpu(item) {
+            const vm = this
+            vm.$router.push({ path: 'sku?id=' +item.id})
+        }
     },
 }
