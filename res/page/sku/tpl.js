@@ -5,7 +5,7 @@ export default `
       left-text="返回"
       left-arrow
       @click-left="onClickLeft"
-    />
+    ></van-nav-bar>
 
     <van-swipe :autoplay="3000" indicator-color="white">
         <van-swipe-item v-for="(item, index) in banner"  v-bind:key="index">
