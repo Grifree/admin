@@ -30,6 +30,12 @@
             <el-form-item label="地区限制" >
                 <ta-lbs-limit v-model="form.area"></ta-lbs-limit>
             </el-form-item>
+            <el-form-item label="金额(单位分)" >
+                <ta-input-fen :min="0" v-model="form.amount" :step="100"></ta-input-fen>
+            </el-form-item>
+            <el-form-item>
+                {{form.amount}}
+            </el-form-item>
             <el-form-item label="编辑器" >
                 <ta-editor v-model="form.content" photo="/admin/upload/photo" > ></ta-editor>
             </el-form-item>
@@ -43,27 +49,10 @@
 [[block script()]]
 <script>
     window.__RENDER_DATA = {}
-    // 演示用代码
+    // 演示用代码,项目中 __RENDER_DATA 由后端控制输出
     if (location.pathname == '/admin/demo_create') {
         __RENDER_DATA = {
             formKind: "create",
-            form: {
-                title: '',
-
-                type: '',
-                file: {
-                    filename: "",
-                    id: "",
-                },
-                photo: {
-                    src: "",
-                    id: "",
-                },
-                photoList: [],
-                fileList: [],
-                region: [],
-                content: "",
-            }
         }
     }
     if (location.pathname == '/admin/demo_update') {
@@ -121,6 +110,24 @@
                 ...__RENDER_DATA,
                 search:TA.m._readSearch(),
                 header: header,
+            }
+            // 设置默认值避免创建页面vue报错
+            out.form = out.form || {
+                title: '',
+
+                type: '',
+                file: {
+                    filename: "",
+                    id: "",
+                },
+                photo: {
+                    src: "",
+                    id: "",
+                },
+                photoList: [],
+                fileList: [],
+                region: [],
+                content: "",
             }
             return out
         },

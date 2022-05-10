@@ -15,15 +15,6 @@ TA.enum.skuType = [
 ]
 
 // url
-TA.m.url_sms_send = function () {
-    return "/sms/send"
-}
-TA.m.url_captcha = function () {
-    return "/captcha"
-}
-TA.m.url_home = function () {
-    return "/admin/home"
-}
 TA.m.url_logout = function () {
     return "/admin/logout"
 }

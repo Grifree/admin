@@ -120,7 +120,7 @@ TA.m._req = function (config, passCallback, failCallback, always) {
         });
     }
     always = always || function () {
-        
+
     }
     axios(settings).then(function (res) {
         loading.close()
@@ -259,5 +259,8 @@ Vue.component(LBSLIMIT.name, LBSLIMIT)
 
 import RESGION from "./module/region/index.js"
 Vue.component(RESGION.name, RESGION)
+
+import InputFen from "./module/input-fen/index.js"
+Vue.component(InputFen.name, InputFen)
 
 document.getElementById("ta-app").style.display="block"

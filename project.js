@@ -65,3 +65,13 @@ TA.hook.req = {
         })
     },
 }
+
+TA.m.url_sms_send = function () {
+    return "/sms/send"
+}
+TA.m.url_captcha = function () {
+    return "/captcha"
+}
+TA.m.url_home = function () {
+    return "/admin/home"
+}
